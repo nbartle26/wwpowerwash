@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WashWizards - Reviews</title>
+
+  <!-- Load Montserrat font from Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Link to external stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <nav class="topnav">
+    <div class="topnav-left">
+      <input
+        type="search"
+        placeholder="Search..."
+        class="search-bar"
+        aria-label="Search site"
+      />
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="schedule.html">Schedule Us</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="#contact">Contact Us</a>
+      </div>
+    </div>
+    <div class="topnav-right" title="WashWizards Logo">
+      <span>WashWizards</span>
+      <img src="WashWizardsLogo.jpeg" alt="WashWizards Logo" />
+    </div>
+  </nav>
+
+  <div class="spacing-top"></div>
+
+  <section class="full-width-banner" aria-label="Page Title">
+    Our Reviews
+  </section>
+
+  <main>
+    <section class="nextdoor-section" aria-label="Nextdoor Company Profile">
+    <p>Find us on Nextdoor for more customer reviews and updates.</p>
+    <br />
+    <button
+        class="nextdoor-button"
+        onclick="window.open('https://nextdoor.com/pages/brysons-landscaping-cary-nc/', '_blank', 'noopener')"
+    >
+        Visit Our Nextdoor Profile
+    </button>
+    </section>
+
+
+    <section class="review-form" aria-label="Leave a review form">
+      <h2>Leave a Review</h2>
+      <form id="reviewForm">
+        <div class="rating" aria-label="Star rating">
+          <input type="radio" id="star5" name="rating" value="5" /><label
+            for="star5"
+            title="5 stars"
+            >★</label
+          >
+          <input type="radio" id="star4" name="rating" value="4" /><label
+            for="star4"
+            title="4 stars"
+            >★</label
+          >
+          <input type="radio" id="star3" name="rating" value="3" /><label
+            for="star3"
+            title="3 stars"
+            >★</label
+          >
+          <input type="radio" id="star2" name="rating" value="2" /><label
+            for="star2"
+            title="2 stars"
+            >★</label
+          >
+          <input type="radio" id="star1" name="rating" value="1" /><label
+            for="star1"
+            title="1 star"
+            >★</label
+          >
+        </div>
+        <textarea
+          id="reviewText"
+          name="reviewText"
+          placeholder="Write your review here..."
+          required
+        ></textarea>
+        <button type="submit" class="submit-review">Submit Review</button>
+      </form>
+    </section>
+
+    <section
+      class="reviews-list"
+      aria-label="Posted reviews"
+      id="reviewsList"
+    >
+      <!-- Reviews will appear here dynamically -->
+    </section>
+  </main>
+
+  <section class="newsletter-banner" aria-label="Join our newsletter">
+    Join our monthly newsletter for the latest updates and exclusive offers!
+    <button
+      onclick="alert('Thank you for your interest! Newsletter signup coming soon.')"
+    >
+      Subscribe
+    </button>
+  </section>
+
+  <div class="spacing-bottom"></div>
+
+  <footer
+    id="contact"
+    class="footer-nav"
+    role="contentinfo"
+    aria-label="Contact information and footer navigation"
+  >
+    <a href="index.html#contact" aria-label="Contact Us section">Contact Us</a>
+    <span>|</span>
+    <span>999-999-9999</span>
+    <span>|</span>
+    <a
+      href="mailto:dummyemail@gmail.com"
+      aria-label="Send email to dummyemail@gmail.com"
+      >dummyemail@gmail.com</a
+    >
+  </footer>
+
+  <script>
+    const reviewForm = document.getElementById('reviewForm');
+    const reviewsList = document.getElementById('reviewsList');
+
+    // Load reviews from localStorage or start empty
+    let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+
+    function renderReviews() {
+      reviewsList.innerHTML = '';
+      if (reviews.length === 0) {
+        reviewsList.innerHTML =
+          '<p style="text-align:center; font-weight: 600;">No reviews yet. Be the first to leave one!</p>';
+        return;
+      }
+      reviews.forEach(({ rating, text }, idx) => {
+        const stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+        const reviewEl = document.createElement('div');
+        reviewEl.classList.add('review-item');
+        reviewEl.innerHTML = `
+          <div class="review-stars" aria-label="${rating} out of 5 stars">${stars}</div>
+          <div class="review-text">${text
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/\n/g, '<br>')}</div>
+        `;
+        reviewsList.appendChild(reviewEl);
+      });
+    }
+
+    reviewForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const rating = parseInt(reviewForm.rating.value);
+      const text = reviewForm.reviewText.value.trim();
+      if (!rating) {
+        alert('Please select a star rating.');
+        return;
+      }
+      if (!text) {
+        alert('Please write a review.');
+        return;
+      }
+      reviews.unshift({ rating, text });
+      localStorage.setItem('reviews', JSON.stringify(reviews));
+      renderReviews();
+      reviewForm.reset();
+      alert('Thank you for your review!');
+    });
+
+    // Initial render
+    renderReviews();
+  </script>
+</body>
+</html>

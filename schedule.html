@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WashWizards - Home</title>
+
+  <!-- Load Montserrat font from Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* Reset & base */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body, html {
+      height: 100%;
+      font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #e6f0ff; /* light blue background */
+      color: #0B3D91; /* darker blue text */
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      scroll-behavior: smooth; /* Smooth scrolling for anchor links */
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+    }
+
+    /* Top Navbar */
+    .topnav {
+      position: sticky;
+      top: 0;
+      background: #4A90E2; /* lighter blue */
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.5rem 1rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      z-index: 1000;
+    }
+    .topnav-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-grow: 1;
+    }
+    .search-bar {
+      padding: 0.4rem 0.6rem;
+      border-radius: 4px;
+      border: none;
+      font-size: 1rem;
+      width: 180px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 1.2rem;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    .nav-links a {
+      color: white;
+      transition: color 0.3s ease;
+    }
+    .nav-links a:hover {
+      text-decoration: underline;
+      color: #cce0ff; /* lighter blue on hover */
+    }
+    .topnav-right {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: #E6F0FF; /* soft white */
+      white-space: nowrap;
+    }
+    .topnav-right img {
+      height: 24px;
+      width: 24px;
+      object-fit: contain;
+      border-radius: 4px;
+    }
+
+    /* Main content placeholder */
+    main {
+      flex-grow: 1;
+      padding: 2rem 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* Footer Navbar */
+    .footer-nav {
+      background: #4A90E2;
+      color: #E6F0FF;
+      text-align: center;
+      padding: 1rem 1rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      position: sticky;
+      bottom: 0;
+      box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    }
+    .footer-nav strong {
+      display: block;
+      font-size: 1.2rem;
+      margin-bottom: 0.3rem;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="topnav">
+    <div class="topnav-left">
+      <input type="search" placeholder="Search..." class="search-bar" aria-label="Search site" />
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="schedule.html">Schedule Us</a>
+        <a href="reviews.html">Reviews</a>
+        <!-- Changed this link to anchor to footer -->
+        <a href="#contact">Contact Us</a>
+      </div>
+    </div>
+    <div class="topnav-right" title="WashWizards Logo">
+      <span>WashWizards</span>
+      <img src="WashWizardsLogo.jpeg" alt="WashWizards Logo" />
+    </div>
+  </nav>
+
+  <main>
+    <!-- Homepage content goes here -->
+  </main>
+
+  <!-- Footer with id for anchor -->
+  <footer id="contact" class="footer-nav" role="contentinfo">
+    <strong>Contact Us</strong>
+    999-999-9999 | dummyemail@gmail.com
+  </footer>
+
+</body>
+</html>
