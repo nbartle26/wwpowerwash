@@ -3,119 +3,123 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>WashWizards - Home</title>
+  <title>WashWizards - Schedule</title>
 
-  <!-- Load Montserrat font from Google Fonts -->
+  <!-- Montserrat Font -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
 
+  <!-- External CSS -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- FullCalendar CSS -->
+  <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css' rel='stylesheet' />
+
   <style>
-    /* Reset & base */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    body, html {
-      height: 100%;
-      font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #e6f0ff; /* light blue background */
-      color: #0B3D91; /* darker blue text */
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      scroll-behavior: smooth; /* Smooth scrolling for anchor links */
-    }
-    a {
-      text-decoration: none;
-      color: inherit;
-      cursor: pointer;
-    }
-
-    /* Top Navbar */
-    .topnav {
-      position: sticky;
-      top: 0;
-      background: #4A90E2; /* lighter blue */
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.5rem 1rem;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      z-index: 1000;
-    }
-    .topnav-left {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      flex-grow: 1;
-    }
-    .search-bar {
-      padding: 0.4rem 0.6rem;
-      border-radius: 4px;
-      border: none;
-      font-size: 1rem;
-      width: 180px;
-    }
-    .nav-links {
-      display: flex;
-      gap: 1.2rem;
-      font-weight: 600;
-      font-size: 1rem;
-    }
-    .nav-links a {
-      color: white;
-      transition: color 0.3s ease;
-    }
-    .nav-links a:hover {
-      text-decoration: underline;
-      color: #cce0ff; /* lighter blue on hover */
-    }
-    .topnav-right {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-weight: 700;
-      font-size: 1.25rem;
-      color: #E6F0FF; /* soft white */
-      white-space: nowrap;
-    }
-    .topnav-right img {
-      height: 24px;
-      width: 24px;
-      object-fit: contain;
-      border-radius: 4px;
-    }
-
-    /* Main content placeholder */
-    main {
-      flex-grow: 1;
-      padding: 2rem 1rem;
-      max-width: 1200px;
-      margin: 0 auto;
-      width: 100%;
-    }
-
-    /* Footer Navbar */
-    .footer-nav {
+    .services-list {
+      display: block;
       background: #4A90E2;
       color: #E6F0FF;
-      text-align: center;
-      padding: 1rem 1rem 1.5rem;
-      font-size: 1rem;
-      font-weight: 600;
-      position: sticky;
-      bottom: 0;
-      box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      padding: 2rem;
+      margin: 2rem auto;
+      max-width: 1300px; /* match your inline style */
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      position: relative;
+      min-height: 300px;
     }
-    .footer-nav strong {
+    .services-list > div {
+    width: 100%;
+    }
+    .services-list::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(0, 102, 204, 0.65); /* semi-transparent blue overlay */
+      border-radius: 10px;
+      z-index: 0;
+    }
+    .services-list > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Style calendar to be centered and with white background for clarity */
+    #calendar {
+      background-color: white;
+      border-radius: 8px;
+      padding: 1rem;
+      max-width: 700px;
+      margin: 1rem auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    /* Modal styles */
+    .modal {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    .modal.hidden {
+      display: none;
+    }
+    .modal-content {
+      background: white;
+      padding: 1.5rem 2rem;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 450px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      color: #333;
+      position: relative;
+    }
+    .close-button {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #666;
+      cursor: pointer;
+    }
+    .modal-content label {
       display: block;
-      font-size: 1.2rem;
-      margin-bottom: 0.3rem;
+      margin-top: 0.75rem;
+      font-weight: 600;
+    }
+    .modal-content input,
+    .modal-content select,
+    .modal-content textarea {
+      width: 100%;
+      padding: 0.4rem 0.5rem;
+      margin-top: 0.3rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+      font-family: 'Montserrat', sans-serif;
+      resize: vertical;
+    }
+    .quote-button {
+      margin-top: 1rem;
+      background-color: #0066cc;
+      border: none;
+      color: white;
+      font-weight: 700;
+      padding: 0.6rem 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-family: 'Montserrat', sans-serif;
+      transition: background-color 0.3s ease;
+    }
+    .quote-button:hover {
+      background-color: #004a99;
     }
   </style>
 </head>
 <body>
-
   <nav class="topnav">
     <div class="topnav-left">
       <input type="search" placeholder="Search..." class="search-bar" aria-label="Search site" />
@@ -124,24 +128,240 @@
         <a href="services.html">Services</a>
         <a href="schedule.html">Schedule Us</a>
         <a href="reviews.html">Reviews</a>
-        <!-- Changed this link to anchor to footer -->
         <a href="#contact">Contact Us</a>
       </div>
     </div>
-    <div class="topnav-right" title="WashWizards Logo">
+    <div class="topnav-right">
       <span>WashWizards</span>
-      <img src="WashWizardsLogo.jpeg" alt="WashWizards Logo" />
+      <img src="WashWizardsLogo.jpg" alt="WashWizards Logo" />
     </div>
   </nav>
 
   <main>
-    <!-- Homepage content goes here -->
+<section class="services-list" role="region" aria-label="List of services offered">
+  <div>
+    <h2 class="about-heading">Online Booking System</h2>
+    <p class="subtitle">Choose a convenient date and time that works best for you. We'll handle the rest!</p>
+    <div id='calendar'></div>
+  </div>
+</section>
+
+
+
+    <!-- Booking Form Modal -->
+    <div id="bookingModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-content equipment-section">
+        <span class="close-button" role="button" aria-label="Close booking form">&times;</span>
+        <h2 id="modalTitle" class="section-title">Schedule Your Appointment</h2>
+        <form id="bookingForm">
+          <label for="firstName">First Name</label>
+          <input type="text" id="firstName" name="firstName" required />
+
+          <label for="lastName">Last Name</label>
+          <input type="text" id="lastName" name="lastName" required />
+
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required />
+
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone" />
+
+          <label for="address">Address</label>
+          <input type="text" id="address" name="address" />
+
+          <label for="additionalInfo">Additional Information</label>
+          <textarea id="additionalInfo" name="additionalInfo" rows="3"></textarea>
+
+          <label for="timeSlot">Time Slot</label>
+          <select id="timeSlot" name="timeSlot" required>
+            <option value="8:00 AM">8:00 AM</option>
+            <option value="10:00 AM">10:00 AM</option>
+            <option value="12:00 PM">12:00 PM</option>
+            <option value="2:00 PM">2:00 PM</option>
+            <option value="4:00 PM">4:00 PM</option>
+          </select>
+
+          <button type="submit" class="quote-button">Confirm Booking</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- FullCalendar + Script -->
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const calendarEl = document.getElementById('calendar');
+        const modal = document.getElementById('bookingModal');
+        const closeBtn = document.querySelector('.close-button');
+        const bookingForm = document.getElementById('bookingForm');
+
+        // Keep track of booked slots to prevent double booking
+        const bookedSlots = [];
+
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'dayGridMonth',
+          selectable: true,
+          selectMirror: true,
+          // Prevent selecting past dates
+          validRange: {
+            start: new Date().toISOString().slice(0, 10)
+          },
+
+            dayCellDidMount: function(arg) {
+              // Only add slots to day cells in the month view
+              if (arg.view.type !== "dayGridMonth") return;
+
+              const timeSlots = [
+                "8:00 AM", "10:00 AM", "12:00 PM",
+                "2:00 PM", "4:00 PM", "6:00 PM"
+              ];
+
+                const today = new Date();
+                today.setHours(0,0,0,0);
+
+                const cellDate = new Date(arg.date);
+                cellDate.setHours(0,0,0,0);
+
+                // Only show slots for today and future days
+                if (cellDate < today) return;
+
+              // Create a container for the slots
+              const slotsContainer = document.createElement('div');
+              slotsContainer.style.display = 'flex';
+              slotsContainer.style.flexDirection = 'column';
+              slotsContainer.style.alignItems = 'flex-start';
+
+
+                              // For today, filter out past time slots
+                let filteredSlots = timeSlots;
+                if (cellDate.getTime() === today.getTime()) {
+                  const now = new Date();
+                  filteredSlots = timeSlots.filter(slot => {
+                    // Convert slot to 24-hour time for comparison
+                    const [time, modifier] = slot.split(' ');
+                    let [hours, minutes] = time.split(':');
+                    if (hours === '12') hours = '00';
+                    if (modifier === 'PM') hours = parseInt(hours, 10) + 12;
+                    const slotDate = new Date(cellDate);
+                    slotDate.setHours(parseInt(hours, 10), parseInt(minutes, 10), 0, 0);
+                    return slotDate > now;
+                  });
+                }
+
+              filteredSlots.forEach(slot => {
+                const slotDiv = document.createElement('div');
+                slotDiv.textContent = slot;
+                slotDiv.style.backgroundColor = '#28a745';
+                slotDiv.style.color = 'white';
+                slotDiv.style.fontSize = '0.7rem';
+                slotDiv.style.borderRadius = '4px';
+                slotDiv.style.padding = '2px 8px';
+                slotDiv.style.margin = '1px 0 0 18px';
+                slotDiv.style.cursor = 'pointer';
+                slotDiv.style.width = '54px';
+                slotDiv.style.textAlign = 'center';
+
+                slotDiv.addEventListener('click', (e) => {
+                  e.stopPropagation();
+                  bookingForm.setAttribute('data-date', arg.date.toISOString().slice(0,10));
+                  bookingForm.timeSlot.value = slot;
+                  bookingForm.reset();
+                  modal.classList.remove('hidden');
+                });
+
+              slotsContainer.appendChild(slotDiv);
+            });
+              // Append the slots below the date number
+              arg.el.appendChild(slotsContainer);
+
+            },
+            // ...keep the rest of your config...
+            dateClick: function (info) {
+              // Store clicked date for form submission
+              bookingForm.setAttribute('data-date', info.dateStr);
+
+              // Reset form and open modal
+              bookingForm.reset();
+              modal.classList.remove('hidden');
+            },
+            events: [],
+          });
+
+        calendar.render();
+
+        // Close modal handler
+        closeBtn.onclick = () => modal.classList.add('hidden');
+
+        // Close modal if user clicks outside modal content
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) {
+            modal.classList.add('hidden');
+          }
+        });
+
+        // Handle booking form submission
+        bookingForm.onsubmit = (e) => {
+          e.preventDefault();
+
+          const date = bookingForm.getAttribute('data-date');
+          const firstName = bookingForm.firstName.value.trim();
+          const lastName = bookingForm.lastName.value.trim();
+          const email = bookingForm.email.value.trim();
+          const phone = bookingForm.phone.value.trim();
+          const address = bookingForm.address.value.trim();
+          const additionalInfo = bookingForm.additionalInfo.value.trim();
+          const timeSlot = bookingForm.timeSlot.value;
+
+          // Create a unique id for booking to check duplicates
+          const bookingId = `${date}_${timeSlot}`;
+
+          // Check if this slot is already booked
+          if (bookedSlots.includes(bookingId)) {
+            alert(`Sorry, the ${timeSlot} slot on ${date} is already booked. Please select another slot.`);
+            return;
+          }
+
+          // Save booked slot
+          bookedSlots.push(bookingId);
+
+          // Add event to calendar
+          calendar.addEvent({
+            id: bookingId,
+            title: `Booked: ${firstName} ${lastName}`,
+            start: date + 'T' + convertTo24Hour(timeSlot),
+            allDay: false,
+          });
+
+          alert(`Booking Confirmed!\nName: ${firstName} ${lastName}\nDate: ${date}\nTime: ${timeSlot}`);
+
+          bookingForm.reset();
+          modal.classList.add('hidden');
+        };
+
+        // Utility to convert 12-hour time to 24-hour format for FullCalendar
+        function convertTo24Hour(time12h) {
+          const [time, modifier] = time12h.split(' ');
+          let [hours, minutes] = time.split(':');
+
+          if (hours === '12') {
+            hours = '00';
+          }
+          if (modifier === 'PM') {
+            hours = parseInt(hours, 10) + 12;
+          }
+          return `${hours.toString().padStart(2,'0')}:${minutes || '00'}`;
+        }
+      });
+      
+    </script>
   </main>
 
-  <!-- Footer with id for anchor -->
-  <footer id="contact" class="footer-nav" role="contentinfo">
-    <strong>Contact Us</strong>
-    999-999-9999 | dummyemail@gmail.com
+  <footer class="footer" id="contact" role="contentinfo" aria-label="Contact information and footer navigation">
+    <p><strong>Contact Us</strong></p>
+    <p>999-999-9999 | dummyemail@gmail.com</p>
+    <a href="privacystatement.pdf" target="_blank" rel="noopener noreferrer">Privacy Statement</a> | 
+    <a href="termsofservice.pdf" target="_blank" rel="noopener noreferrer">Terms & Conditions</a>
   </footer>
 
 </body>

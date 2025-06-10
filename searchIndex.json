@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Home",
+    "summary": "Main landing page with hero message and overview of WashWizards.",
+    "url": "index.html"
+  },
+  {
+    "name": "Services - Pressure Washing",
+    "summary": "Details on pressure washing services offered.",
+    "url": "services.html#pressure-washing"
+  },
+  {
+    "name": "Quote Calculator",
+    "summary": "Tool to estimate service costs.",
+    "url": "services.html#quote-calculator-banner"
+  },
+  {
+    "name": "Schedule Appointment",
+    "summary": "Interactive booking platform to schedule service.",
+    "url": "schedule.html"
+  },
+  {
+    "name": "Reviews",
+    "summary": "Customer reviews and testimonials.",
+    "url": "reviews.html"
+  },
+  {
+    "name": "Contact Us",
+    "summary": "Phone, email, and contact form.",
+    "url": "#contact"
+  },
+  {
+    "name": "Our Mission",
+    "summary": "WashWizards mission and core values.",
+    "url": "index.html#mission"
+  },
+  {
+    "name": "Service Area",
+    "summary": "Locations served including Cary, Raleigh, and Apex.",
+    "url": "index.html#service-area"
+  }
+]

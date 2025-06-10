@@ -34,59 +34,46 @@
     </div>
     <div class="topnav-right" title="WashWizards Logo">
       <span>WashWizards</span>
-      <img src="WashWizardsLogo.jpeg" alt="WashWizards Logo" />
+      <img src="WashWizardsLogo.jpg" alt="WashWizards Logo" />
     </div>
   </nav>
 
   <div class="spacing-top"></div>
-
+  <br />
   <section class="full-width-banner" aria-label="Page Title">
     Our Reviews
   </section>
 
   <main>
-    <section class="nextdoor-section" aria-label="Nextdoor Company Profile">
-    <p>Find us on Nextdoor for more customer reviews and updates.</p>
-    <br />
-    <button
-        class="nextdoor-button"
-        onclick="window.open('https://nextdoor.com/pages/brysons-landscaping-cary-nc/', '_blank', 'noopener')"
-    >
-        Visit Our Nextdoor Profile
-    </button>
-    </section>
 
+    <section
+      class="reviews-list"
+      aria-label="Posted reviews"
+      id="reviewsList"
+    >
+      <!-- Reviews will appear here dynamically -->
+    </section>
 
     <section class="review-form" aria-label="Leave a review form">
       <h2>Leave a Review</h2>
       <form id="reviewForm">
         <div class="rating" aria-label="Star rating">
-          <input type="radio" id="star5" name="rating" value="5" /><label
-            for="star5"
-            title="5 stars"
-            >★</label
-          >
-          <input type="radio" id="star4" name="rating" value="4" /><label
-            for="star4"
-            title="4 stars"
-            >★</label
-          >
-          <input type="radio" id="star3" name="rating" value="3" /><label
-            for="star3"
-            title="3 stars"
-            >★</label
-          >
-          <input type="radio" id="star2" name="rating" value="2" /><label
-            for="star2"
-            title="2 stars"
-            >★</label
-          >
-          <input type="radio" id="star1" name="rating" value="1" /><label
-            for="star1"
-            title="1 star"
-            >★</label
-          >
+          <input type="radio" id="star5" name="rating" value="5" />
+          <label for="star5" title="5 stars">★</label>
+
+          <input type="radio" id="star4" name="rating" value="4" />
+          <label for="star4" title="4 stars">★</label>
+
+          <input type="radio" id="star3" name="rating" value="3" />
+          <label for="star3" title="3 stars">★</label>
+
+          <input type="radio" id="star2" name="rating" value="2" />
+          <label for="star2" title="2 stars">★</label>
+
+          <input type="radio" id="star1" name="rating" value="1" />
+          <label for="star1" title="1 star">★</label>
         </div>
+
         <textarea
           id="reviewText"
           name="reviewText"
@@ -96,92 +83,162 @@
         <button type="submit" class="submit-review">Submit Review</button>
       </form>
     </section>
-
-    <section
-      class="reviews-list"
-      aria-label="Posted reviews"
-      id="reviewsList"
-    >
-      <!-- Reviews will appear here dynamically -->
-    </section>
   </main>
 
-  <section class="newsletter-banner" aria-label="Join our newsletter">
-    Join our monthly newsletter for the latest updates and exclusive offers!
+  <section class="nextdoor-section" aria-label="Nextdoor Company Profile">
+    <p>Find us on Nextdoor for more customer reviews and updates.</p>
+    <br />
     <button
-      onclick="alert('Thank you for your interest! Newsletter signup coming soon.')"
+      class="nextdoor-button"
+      onclick="window.open('https://nextdoor.com/pages/brysons-landscaping-cary-nc/', '_blank', 'noopener')"
     >
-      Subscribe
+      Visit Our Nextdoor Profile
     </button>
+    <br /><br /><br />
   </section>
 
+  <!-- clear reviews if needed -->
+<!-- <button onclick="localStorage.removeItem('reviews'); location.reload();">
+  Clear All Reviews
+</button> -->
+
+<section class="newsletter-banner" aria-label="Join our newsletter">
+  Join our monthly newsletter for the latest updates and exclusive offers!
+  <button onclick="openSubscribeForm()">Subscribe</button>
+</section>
+
+<!-- Hidden popup form container (initially hidden) -->
+<div id="subscribe-popup" style="display:none; position:fixed; top:20%; left:50%; transform:translateX(-50%);
+background:white; padding:20px; border:2px solid black; z-index:1000; max-width:300px;">
+  <form id="subscribe-form">
+    <label for="firstName">First Name:</label><br />
+    <input type="text" id="firstName" name="firstName" required /><br /><br />
+
+    <label for="lastName">Last Name:</label><br />
+    <input type="text" id="lastName" name="lastName" required /><br /><br />
+
+    <label for="email">Email:</label><br />
+    <input type="email" id="email" name="email" required /><br /><br />
+
+    <label for="phone">Phone Number:</label><br />
+    <input type="tel" id="phone" name="phone" /><br /><br />
+
+    <label for="address">Address:</label><br />
+    <input type="text" id="address" name="address" /><br /><br />
+
+    <button type="submit">Submit</button>
+  </form>
+</div>
+
+<script>
+  function openSubscribeForm() {
+    document.getElementById('subscribe-popup').style.display = 'block';
+  }
+
+  document.getElementById('subscribe-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // stop actual form submit and page reload
+
+    // Collect data from form fields
+    const customerData = {
+      firstName: this.firstName.value.trim(),
+      lastName: this.lastName.value.trim(),
+      email: this.email.value.trim(),
+      phone: this.phone.value.trim(),
+      address: this.address.value.trim()
+    };
+
+    // For now: print to console to verify
+    console.log('Customer Data Submitted:', customerData);
+
+    // Hide the popup
+    document.getElementById('subscribe-popup').style.display = 'none';
+
+    // Reset the form fields
+    this.reset();
+
+    alert('Thank you for subscribing!');
+
+    // Next step: send this data to your customer database
+  });
+</script>
+
+
+<br />
   <div class="spacing-bottom"></div>
 
-  <footer
-    id="contact"
-    class="footer-nav"
-    role="contentinfo"
-    aria-label="Contact information and footer navigation"
-  >
-    <a href="index.html#contact" aria-label="Contact Us section">Contact Us</a>
-    <span>|</span>
-    <span>999-999-9999</span>
-    <span>|</span>
-    <a
-      href="mailto:dummyemail@gmail.com"
-      aria-label="Send email to dummyemail@gmail.com"
-      >dummyemail@gmail.com</a
-    >
-  </footer>
+<footer class="footer" id="contact" role="contentinfo" aria-label="Contact information and footer navigation">
+  <p><strong>Contact Us</strong></p>
+  <p>999-999-9999 | dummyemail@gmail.com</p>
+  <a href="privacystatement.pdf" target="_blank" rel="noopener noreferrer">Privacy Statement</a> | 
+  <a href="termsofservice.pdf" target="_blank" rel="noopener noreferrer">Terms & Conditions</a>
+</footer>
+
+  <!-- Popup Form -->
+  <div id="popup">
+    <h2>Subscribe to Newsletter</h2>
+    <form id="customerForm" onsubmit="event.preventDefault(); submitForm();">
+      <label>First Name:</label>
+      <input type="text" id="firstName" required />
+
+      <label>Last Name:</label>
+      <input type="text" id="lastName" required />
+
+      <label>Email:</label>
+      <input type="email" id="email" required />
+
+      <label>Phone:</label>
+      <input type="tel" id="phone" />
+
+      <label>Address:</label>
+      <input type="text" id="address" />
+
+      <button type="submit">Submit</button>
+      <button type="button" onclick="closePopup()">Cancel</button>
+    </form>
+  </div>
 
   <script>
-    const reviewForm = document.getElementById('reviewForm');
-    const reviewsList = document.getElementById('reviewsList');
-
-    // Load reviews from localStorage or start empty
-    let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
-
-    function renderReviews() {
-      reviewsList.innerHTML = '';
-      if (reviews.length === 0) {
-        reviewsList.innerHTML =
-          '<p style="text-align:center; font-weight: 600;">No reviews yet. Be the first to leave one!</p>';
-        return;
-      }
-      reviews.forEach(({ rating, text }, idx) => {
-        const stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
-        const reviewEl = document.createElement('div');
-        reviewEl.classList.add('review-item');
-        reviewEl.innerHTML = `
-          <div class="review-stars" aria-label="${rating} out of 5 stars">${stars}</div>
-          <div class="review-text">${text
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/\n/g, '<br>')}</div>
-        `;
-        reviewsList.appendChild(reviewEl);
-      });
+    function showPopup() {
+      document.getElementById("popup").style.display = "block";
     }
 
-    reviewForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const rating = parseInt(reviewForm.rating.value);
-      const text = reviewForm.reviewText.value.trim();
-      if (!rating) {
-        alert('Please select a star rating.');
-        return;
-      }
-      if (!text) {
-        alert('Please write a review.');
-        return;
-      }
-      reviews.unshift({ rating, text });
-      localStorage.setItem('reviews', JSON.stringify(reviews));
-      renderReviews();
-      reviewForm.reset();
-      alert('Thank you for your review!');
-    });
+    function closePopup() {
+      document.getElementById("popup").style.display = "none";
+    }
 
+    async function submitForm() {
+      const customerData = {
+        firstName: document.getElementById("firstName").value,
+        lastName: document.getElementById("lastName").value,
+        email: document.getElementById("email").value,
+        phone: document.getElementById("phone").value,
+        address: document.getElementById("address").value
+      };
+
+      try {
+        const response = await fetch("http://localhost:3000/api/customers", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(customerData)
+        });
+
+        const result = await response.json();
+        alert(result.message);
+        if (response.ok) {
+          closePopup();
+          document.getElementById("customerForm").reset();
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("There was a problem submitting your information.");
+      }
+    }
+  </script>
+
+</body>
+</html>
     // Initial render
     renderReviews();
   </script>

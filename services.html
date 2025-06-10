@@ -7,300 +7,10 @@
 
   <!-- Load Montserrat font from Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
-
-  <style>
-    /* Reset & base */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    body, html {
-      height: 100%;
-      font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #e6f0ff; /* light blue background */
-      color: #0B3D91; /* darker blue text */
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-    a {
-      text-decoration: none;
-      color: inherit;
-      cursor: pointer;
-    }
-
-    /* Top Navbar */
-    .topnav {
-      position: sticky;
-      top: 0;
-      background: #4A90E2; /* lighter blue */
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.5rem 1rem;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      z-index: 1000;
-    }
-    .topnav-left {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      flex-grow: 1;
-    }
-    .search-bar {
-      padding: 0.4rem 0.6rem;
-      border-radius: 4px;
-      border: none;
-      font-size: 1rem;
-      width: 180px;
-    }
-    .nav-links {
-      display: flex;
-      gap: 1.2rem;
-      font-weight: 600;
-      font-size: 1rem;
-    }
-    .nav-links a {
-      color: white;
-      transition: color 0.3s ease;
-    }
-    .nav-links a:hover {
-      text-decoration: underline;
-      color: #cce0ff; /* lighter blue on hover */
-    }
-    .topnav-right {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-weight: 700;
-      font-size: 1.25rem;
-      color: #E6F0FF; /* soft white */
-      white-space: nowrap;
-    }
-    .topnav-right img {
-      height: 24px;
-      width: 24px;
-      object-fit: contain;
-      border-radius: 4px;
-    }
-
-    /* Main content */
-    main {
-      flex-grow: 1;
-      padding: 2rem 1rem 4rem;
-      max-width: 1200px;
-      margin: 0 auto;
-      width: 100%;
-    }
-
-    /* Footer Navbar */
-    .footer-nav {
-      background: #4A90E2;
-      color: #E6F0FF;
-      text-align: center;
-      padding: 1rem 1rem 1.5rem;
-      font-size: 1rem;
-      font-weight: 600;
-      position: sticky;
-      bottom: 0;
-      box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
-    }
-    .footer-nav strong {
-      display: block;
-      font-size: 1.2rem;
-      margin-bottom: 0.3rem;
-    }
-
-    /* === Services Page Styles === */
-
-    /* Section Titles */
-    h2.section-title {
-      font-weight: 700;
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      border-bottom: 3px solid #4A90E2;
-      padding-bottom: 0.3rem;
-    }
-
-    /* Services List - Top section */
-    .services-list {
-      background: #4A90E2;
-      color: #E6F0FF;
-      border-radius: 10px;
-      padding: 1.5rem 2rem;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      justify-content: center;
-      margin-bottom: 3rem;
-      box-shadow: 0 4px 8px rgba(74,144,226,0.3);
-    }
-    .service-item {
-      flex: 1 1 220px;
-      background: #0B3D91;
-      border-radius: 8px;
-      padding: 1rem 1.5rem;
-      font-weight: 600;
-      font-size: 1.1rem;
-      text-align: center;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-      transition: background-color 0.3s ease;
-    }
-    .service-item:hover {
-      background-color: #376ac9;
-      cursor: default;
-    }
-
-    /* Equipment Section */
-    .equipment-section {
-      margin-bottom: 3rem;
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(11,61,145,0.1);
-      padding: 2rem 2.5rem;
-    }
-    .equipment-section p {
-      line-height: 1.5;
-      font-size: 1.1rem;
-      color: #0B3D91;
-    }
-
-    /* Service Area */
-    .service-area {
-      display: flex;
-      gap: 2rem;
-      align-items: center;
-      margin-bottom: 3rem;
-      background: #fff;
-      padding: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(11,61,145,0.1);
-      flex-wrap: wrap;
-    }
-    .service-area img {
-      max-width: 320px;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-      flex-shrink: 0;
-      width: 100%;
-      max-height: 240px;
-      object-fit: cover;
-    }
-    .service-area .area-text {
-      flex: 1;
-      font-size: 1.1rem;
-      line-height: 1.5;
-      color: #0B3D91;
-      min-width: 280px;
-    }
-
-    /* Before & After Gallery */
-    .before-after-section {
-      margin-bottom: 3rem;
-    }
-    .before-after-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
-      gap: 1.5rem;
-    }
-    .before-after-item {
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 8px rgba(11,61,145,0.1);
-      overflow: hidden;
-      cursor: pointer;
-      transition: transform 0.25s ease;
-      position: relative;
-    }
-    .before-after-item:hover {
-      transform: scale(1.05);
-      z-index: 10;
-    }
-    .before-after-item img {
-      width: 100%;
-      display: block;
-      object-fit: cover;
-      height: 200px;
-    }
-    .before-after-caption {
-      padding: 0.5rem 1rem;
-      font-weight: 600;
-      text-align: center;
-      background: #4A90E2;
-      color: #E6F0FF;
-    }
-
-    /* Quote Calculator */
-    .quote-calculator {
-      background: white;
-      padding: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(11,61,145,0.1);
-      max-width: 600px;
-      margin: 0 auto 3rem;
-    }
-    .quote-calculator h2 {
-      margin-bottom: 1.5rem;
-      color: #0B3D91;
-      text-align: center;
-    }
-    .quote-calculator label {
-      display: block;
-      font-weight: 600;
-      margin-bottom: 0.3rem;
-      color: #0B3D91;
-    }
-    .quote-calculator select,
-    .quote-calculator input[type="number"] {
-      width: 100%;
-      padding: 0.5rem 0.75rem;
-      margin-bottom: 1.25rem;
-      border-radius: 6px;
-      border: 1px solid #4A90E2;
-      font-size: 1rem;
-      font-family: inherit;
-      color: #0B3D91;
-    }
-    .quote-calculator button {
-      background-color: #4A90E2;
-      color: white;
-      font-weight: 700;
-      font-size: 1.1rem;
-      border: none;
-      padding: 0.75rem 2rem;
-      border-radius: 8px;
-      cursor: pointer;
-      width: 100%;
-      transition: background-color 0.3s ease;
-    }
-    .quote-calculator button:hover {
-      background-color: #376ac9;
-    }
-    .quote-result {
-      margin-top: 1.25rem;
-      font-weight: 700;
-      font-size: 1.2rem;
-      text-align: center;
-      color: #0B3D91;
-      min-height: 1.5em;
-    }
-
-    @media (max-width: 768px) {
-      .service-area {
-        flex-direction: column;
-        text-align: center;
-      }
-      .service-area .area-text {
-        min-width: auto;
-      }
-      .services-list {
-        justify-content: center;
-      }
-    }
-
-  </style>
+  
+  <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
 
   <nav class="topnav">
@@ -311,26 +21,24 @@
         <a href="services.html" aria-current="page">Services</a>
         <a href="schedule.html">Schedule Us</a>
         <a href="reviews.html">Reviews</a>
-        <a href="contact.html">Contact Us</a>
+        <a href="#contact">Contact Us</a>
       </div>
     </div>
     <div class="topnav-right" title="WashWizards Logo">
       <span>WashWizards</span>
-      <img src="WashWizardsLogo.jpeg" alt="WashWizards Logo" />
+      <img src="WashWizardsLogo.jpg" alt="WashWizards Logo" />
     </div>
   </nav>
 
   <main>
     <!-- Top Rendered Services -->
     <section aria-label="List of services offered" class="services-list" role="region">
-        <h1>Our Services</h1>
-        <p>
+    <h2 class="about-heading">Our Services</h2>
       <div class="service-item">Residential Pressure/Softwashing</div>
       <div class="service-item">Commercial Pressure/Softwashing</div>
       <div class="service-item">Gutter Cleaning</div>
       <div class="service-item">Rust Removal</div>
       <div class="service-item">Window Cleaning</div>
-    </p>
     </section>
 
     <!-- Equipment Section -->
@@ -346,7 +54,7 @@
 
     <!-- Service Area Coverage -->
     <section aria-label="Service area coverage" class="service-area" role="region">
-      <img src="service-area-map.jpg" alt="Map showing WashWizards service coverage area" />
+      <img src="serviceareamap.png" alt="Map showing WashWizards service coverage area" />
       <div class="area-text">
         <h2 class="section-title">Service Area Coverage</h2>
         <p>
@@ -361,55 +69,88 @@
     <!-- Before and After Photos -->
     <section aria-label="Before and after photos of services" class="before-after-section" role="region">
       <h2 class="section-title">Before &amp; After Gallery</h2>
-      <div class="before-after-grid">
-        <div class="before-after-item" tabindex="0" aria-label="Before and after image 1">
-          <img src="before1.jpg" alt="Before cleaning: dirty driveway" />
-          <div class="before-after-caption">Driveway Cleaning</div>
+            <div class="before-after-grid">
+        <div class="before-after-item">
+            <img src="before1.jpg" alt="Before 1">
+            <div class="before-after-caption">Driveway Before...</div>
         </div>
-        <div class="before-after-item" tabindex="0" aria-label="Before and after image 2">
-          <img src="after1.jpg" alt="After cleaning: spotless driveway" />
-          <div class="before-after-caption">Driveway Cleaning - After</div>
+        <div class="before-after-item">
+            <img src="after1.jpg" alt="After 1">
+            <div class="before-after-caption">Driveway After!</div>
         </div>
-        <div class="before-after-item" tabindex="0" aria-label="Before and after image 3">
-          <img src="before2.jpg" alt="Before cleaning: dirty siding" />
-          <div class="before-after-caption">House Siding Cleaning</div>
+                <div class="before-after-item">
+            <img src="before1.jpg" alt="Before 1">
+            <div class="before-after-caption">Residental Work Before...</div>
         </div>
-        <div class="before-after-item" tabindex="0" aria-label="Before and after image 4">
-          <img src="after2.jpg" alt="After cleaning: clean house siding" />
-          <div class="before-after-caption">House Siding Cleaning - After</div>
+        <div class="before-after-item">
+            <img src="after1.jpg" alt="After 1">
+            <div class="before-after-caption">Residental Work After!</div>
+        </div>
+                <div class="before-after-item">
+            <img src="before1.jpg" alt="Before 1">
+            <div class="before-after-caption">Windows Before...</div>
+        </div>
+        <div class="before-after-item">
+            <img src="after1.jpg" alt="After 1">
+            <div class="before-after-caption">Windows After!</div>
+        </div>
+                <div class="before-after-item">
+            <img src="before1.jpg" alt="Before 1">
+            <div class="before-after-caption">Gutters Before...</div>
+        </div>
+        <div class="before-after-item">
+            <img src="after1.jpg" alt="After 1">
+            <div class="before-after-caption">Gutters After!</div>
+        </div>
+                <div class="before-after-item">
+            <img src="before1.jpg" alt="Before 1">
+            <div class="before-after-caption">Outdoor Fence Before...</div>
+        </div>
+        <div class="before-after-item">
+            <img src="after1.jpg" alt="After 1">
+            <div class="before-after-caption">Outdoor Fence After!</div>
+        </div>
         </div>
       </div>
     </section>
 
     <!-- Online Quote Calculator -->
-    <section id="quote-calculator-banner" aria-label="Online quote calculator" class="quote-calculator" role="region">
-      <h2>Get a Quick Quote</h2>
-      <form id="quoteForm" aria-describedby="quoteResultText">
-        <label for="serviceType">Select Service:</label>
-        <select id="serviceType" name="serviceType" required>
-          <option value="" disabled selected>Select a service</option>
-          <option value="residential">Residential Pressure/Softwashing</option>
-          <option value="commercial">Commercial Pressure/Softwashing</option>
-          <option value="gutter">Gutter Cleaning</option>
-          <option value="rust">Rust Removal</option>
-          <option value="window">Window Cleaning</option>
+     <section class="quote-calculator">
+      <h2>Get Your Online Quote</h2>
+
+      <form id="quoteForm">
+        <label for="service">Select a Service:</label>
+        <select id="service" name="service" required>
+          <option value="">-- Please choose a service --</option>
+          <option value="gutterCleaning">Gutter Cleaning</option>
+          <option value="residentialPressure">Residential Pressure/Softwashing</option>
+          <option value="commercialPressure">Commercial Pressure/Softwashing</option>
+          <option value="fenceDeckCleaning">Fence/Deck Cleaning</option>
+          <option value="windowWashing">Window Washing</option>
         </select>
 
         <label for="areaSize">Area Size (in square feet):</label>
-        <input type="number" id="areaSize" name="areaSize" min="100" max="10000" placeholder="e.g. 1500" required />
+        <input type="number" id="areaSize" name="areaSize" min="1" step="1" required placeholder="Enter area size" />
 
         <button type="submit">Calculate Quote</button>
+        <br> <br>
+          <div class="book-now-container">
+            <a href="schedule.html" class="book-now-button">Like your Quote? Book Now!</a>
+          </div>
       </form>
-      <div id="quoteResultText" class="quote-result" role="alert" aria-live="polite"></div>
     </section>
+      <script src="quotecalculator.js"></script>
 
   </main>
 
-  <footer class="footer-nav" role="contentinfo">
-    <strong>Contact Us</strong>
-    999-999-9999 | dummyemail@gmail.com
-    Privacy Statement | Terms & Conditions
-  </footer>
+    <footer class="footer" id="contact" role="contentinfo" aria-label="Contact information and footer navigation">
+    <p><strong>Contact Us</strong></p>
+    <p>999-999-9999 | dummyemail@gmail.com</p>
+    <a href="privacystatement.pdf" target="_blank" rel="noopener noreferrer">Privacy Statement</a> | 
+    <a href="termsofservice.pdf" target="_blank" rel="noopener noreferrer">Terms & Conditions</a>
+    </footer>
+
+
 
   <script>
     // Simple quote calculator logic
