@@ -117,15 +117,15 @@ main {
   padding-bottom: 0.3rem;
 }
 
-.about, .equipment-section, .quote-calculator, .review-form {
+.about, .equipment-section, .nextdoor-section, .quote-calculator, .review-form {
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(11,61,145,0.1);
   padding: 2rem 2.5rem;
   margin-bottom: 3rem;
 }
-.about h2, .equipment-section h2 { text-align: center; font-size: 2rem; margin-bottom: 2rem; }
-.about-content, .about-text {
+.about h2, .equipment-section h2, .nextdoor-section h2 { text-align: center; font-size: 2rem; margin-bottom: 2rem; }
+.about-content, .about-text, .nextdoor-text {
   display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; align-items: center;
 }
 .carousel, .about-text { flex: 1; min-width: 300px; max-width: 500px; }
@@ -392,4 +392,42 @@ textarea {
   background: #0B3D91 !important;
   color: #fff !important;
   border: 1.5px solid #fff !important;
+}
+
+
+.service-area .section-title {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.service-area-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.service-area-img {
+  background: #fff;
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  display: block;
+  margin: 0 auto;
+}
+
+.service-area .area-text {
+  font-size: 1.1rem;
+  color: #0B3D91;
+}
+@media (max-width: 900px) {
+  .service-area-columns {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .service-area-img {
+    max-width: 100%;
+  }
 }

@@ -53,25 +53,25 @@
     >
       <!-- Reviews will appear here dynamically -->
     </section>
-
+<br><br>
     <section class="review-form" aria-label="Leave a review form">
       <h2>Leave a Review</h2>
       <form id="reviewForm">
         <div class="rating" aria-label="Star rating">
-          <input type="radio" id="star5" name="rating" value="5" />
-          <label for="star5" title="5 stars">★</label>
-
-          <input type="radio" id="star4" name="rating" value="4" />
-          <label for="star4" title="4 stars">★</label>
-
-          <input type="radio" id="star3" name="rating" value="3" />
-          <label for="star3" title="3 stars">★</label>
+          <input type="radio" id="star1" name="rating" value="1" />
+          <label for="star1" title="1 star">★</label>
 
           <input type="radio" id="star2" name="rating" value="2" />
           <label for="star2" title="2 stars">★</label>
 
-          <input type="radio" id="star1" name="rating" value="1" />
-          <label for="star1" title="1 star">★</label>
+          <input type="radio" id="star3" name="rating" value="3" />
+          <label for="star3" title="3 stars">★</label>
+
+          <input type="radio" id="star4" name="rating" value="4" />
+          <label for="star4" title="4 stars">★</label>
+
+          <input type="radio" id="star5" name="rating" value="5" />
+          <label for="star5" title="5 stars">★</label>
         </div>
 
         <textarea
@@ -85,17 +85,17 @@
     </section>
   </main>
 
-  <section class="nextdoor-section" aria-label="Nextdoor Company Profile">
-    <p>Find us on Nextdoor for more customer reviews and updates.</p>
-    <br />
-    <button
-      class="nextdoor-button"
-      onclick="window.open('https://nextdoor.com/pages/brysons-landscaping-cary-nc/', '_blank', 'noopener')"
-    >
-      Visit Our Nextdoor Profile
-    </button>
-    <br /><br /><br />
-  </section>
+
+      <section aria-label="Nextdoor Section" class="nextdoor-section" role="region">
+      <h2 class="section-title">Additional Reviews & Updates</h2>
+      <div class="nextdoor-text">
+        <p>Find us on Nextdoor for more customer reviews and updates!</p>
+      </div>
+      <br />
+        <div class="book-now-container">
+            <a href='https://nextdoor.com/pages/brysons-landscaping-cary-nc/', '_blank', 'noopener' class="book-now-button">Visit Our Nextdoor Profile!</a>
+        </div>
+    </section>
 
   <!-- clear reviews if needed -->
 <!-- <button onclick="localStorage.removeItem('reviews'); location.reload();">
@@ -135,6 +135,13 @@ background:white; padding:20px; border:2px solid black; z-index:1000; max-width:
     document.getElementById('subscribe-popup').style.display = 'block';
   }
 
+  // Close popup when clicking outside the form
+  document.getElementById('subscribe-popup').addEventListener('click', function(event) {
+    if (event.target === this) {
+      this.style.display = 'none';
+    }
+  });
+
   document.getElementById('subscribe-form').addEventListener('submit', function(event) {
     event.preventDefault(); // stop actual form submit and page reload
 
@@ -162,7 +169,6 @@ background:white; padding:20px; border:2px solid black; z-index:1000; max-width:
   });
 </script>
 
-
 <br />
   <div class="spacing-bottom"></div>
 
@@ -173,70 +179,9 @@ background:white; padding:20px; border:2px solid black; z-index:1000; max-width:
   <a href="termsofservice.pdf" target="_blank" rel="noopener noreferrer">Terms & Conditions</a>
 </footer>
 
-  <!-- Popup Form -->
-  <div id="popup">
-    <h2>Subscribe to Newsletter</h2>
-    <form id="customerForm" onsubmit="event.preventDefault(); submitForm();">
-      <label>First Name:</label>
-      <input type="text" id="firstName" required />
 
-      <label>Last Name:</label>
-      <input type="text" id="lastName" required />
 
-      <label>Email:</label>
-      <input type="email" id="email" required />
-
-      <label>Phone:</label>
-      <input type="tel" id="phone" />
-
-      <label>Address:</label>
-      <input type="text" id="address" />
-
-      <button type="submit">Submit</button>
-      <button type="button" onclick="closePopup()">Cancel</button>
-    </form>
-  </div>
-
-  <script>
-    function showPopup() {
-      document.getElementById("popup").style.display = "block";
-    }
-
-    function closePopup() {
-      document.getElementById("popup").style.display = "none";
-    }
-
-    async function submitForm() {
-      const customerData = {
-        firstName: document.getElementById("firstName").value,
-        lastName: document.getElementById("lastName").value,
-        email: document.getElementById("email").value,
-        phone: document.getElementById("phone").value,
-        address: document.getElementById("address").value
-      };
-
-      try {
-        const response = await fetch("http://localhost:3000/api/customers", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(customerData)
-        });
-
-        const result = await response.json();
-        alert(result.message);
-        if (response.ok) {
-          closePopup();
-          document.getElementById("customerForm").reset();
-        }
-      } catch (error) {
-        console.error("Error:", error);
-        alert("There was a problem submitting your information.");
-      }
-    }
-  </script>
-
+ 
 </body>
 </html>
     // Initial render
