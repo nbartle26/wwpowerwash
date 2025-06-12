@@ -23,7 +23,10 @@
 
   <nav class="topnav">
     <div class="topnav-left">
-      <input type="search" placeholder="Search..." class="search-bar" aria-label="Search site" />
+      <div class="search-container">
+        <input type="search" placeholder="Search..." id="search-input" class="search-bar" aria-label="Search site" autocomplete="off" />
+        <div class="search-results" id="search-results"></div>
+      </div>
       <div class="nav-links">
         <a href="index.html">Home</a>
         <a href="services.html" aria-current="page">Services</a>
@@ -199,6 +202,66 @@
       result.textContent = `Estimated Quote: $${totalPrice.toFixed(2)} USD`;
     });
   </script>
+<script>
+const searchInput = document.getElementById('search-input');
+const resultsContainer = document.getElementById('search-results');
 
+const searchableItems = [
+  { name: 'Home', url: 'index.html' },
+  { name: 'Services', url: 'services.html' },
+  { name: 'Schedule Us', url: 'schedule.html' },
+  { name: 'Reviews', url: 'reviews.html' },
+  { name: 'Contact Us', url: '#contact' },
+  { name: 'About Us', url: 'index.html#about' },
+  { name: 'Quote Calculator', url: 'services.html#quote-calculator-banner' },
+  { name: 'Pressure Washing', url: 'services.html#pressure-washing' },
+  { name: 'Window Cleaning', url: 'services.html#window-cleaning' },
+  { name: 'Gutter Cleaning', url: 'services.html#gutter-cleaning' },
+  { name: 'Driveway Cleaning', url: 'services.html#driveway-cleaning' },
+  { name: 'Before and After Gallery', url: 'services.html#before-after' },
+  { name: 'Our Equipment', url: 'services.html#equipment' },
+  { name: 'Service Area', url: 'services.html#service-area' },
+  { name: 'Privacy Statement', url: 'privacystatement.pdf' },
+  { name: 'Terms & Conditions', url: 'termsofservice.pdf' }
+];
+
+searchInput.addEventListener('input', () => {
+  const query = searchInput.value.trim().toLowerCase();
+  resultsContainer.innerHTML = '';
+  if (query.length === 0) {
+    resultsContainer.style.display = 'none';
+    return;
+  }
+
+  const filtered = searchableItems.filter(item => 
+    item.name.toLowerCase().includes(query)
+  );
+
+  if (filtered.length === 0) {
+    resultsContainer.style.display = 'none';
+    return;
+  }
+
+  filtered.forEach(item => {
+    const div = document.createElement('div');
+    div.textContent = item.name;
+    div.addEventListener('click', () => {
+      window.location.href = item.url;
+      resultsContainer.style.display = 'none';
+      searchInput.value = '';
+    });
+    resultsContainer.appendChild(div);
+  });
+
+  resultsContainer.style.display = 'block';
+});
+
+// Close dropdown if click outside search
+document.addEventListener('click', (e) => {
+  if (!searchInput.contains(e.target) && !resultsContainer.contains(e.target)) {
+    resultsContainer.style.display = 'none';
+  }
+});
+</script>
 </body>
 </html>
