@@ -42,13 +42,29 @@ main {
   gap: 1rem;
   flex-grow: 1;
 }
-
 .search-bar {
   padding: 0.5rem 2rem 0.5rem 2rem;
   border-radius: 4px;
-  border: none;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
   width: 200px;
   font-size: 1rem;
+  background: #fff;
+  -webkit-appearance: none;
+  appearance: none;
+}
+/* Remove Chrome/Safari search input underline and decorations */
+.search-bar::-webkit-search-decoration,
+.search-bar::-webkit-search-cancel-button,
+.search-bar::-webkit-search-results-button,
+.search-bar::-webkit-search-results-decoration {
+  display: none;
+}
+/* Remove Firefox inner border/shadow */
+.search-bar[type="search"]::-moz-search-clear,
+.search-bar[type="search"]::-moz-search-results-decoration {
+  display: none;
 }
 .search-container { position: relative; margin-right: 2rem; }
 .search-results {
@@ -216,14 +232,51 @@ main {
 .review-form h2 {
   font-weight: 700; font-size: 1.8rem; margin-bottom: 1rem; color: #0B3D91; text-align: center;
 }
+/* Match reviewer name input to review textarea */
+#reviewerName {
+  width: 100%;
+  min-height: 40px;
+  border-radius: 8px;
+  border: 1.5px solid #4A90E2;
+  padding: 0.75rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: #0B3D91;
+  background: #fff;
+  resize: none;
+}
 .rating {
-  display: flex; justify-content: center; gap: 0.5rem; margin-bottom: 1rem;
+  direction: rtl;
+  unicode-bidi: bidi-override;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
-.rating input[type="radio"] { display: none; }
+
+.rating input[type="radio"] {
+  display: none;
+}
+
 .rating label {
-  font-size: 2.2rem; color: #ccc; cursor: pointer; transition: color 0.3s; user-select: none;
+  font-size: 2.2rem;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.3s;
+  user-select: none;
 }
-.rating label:hover, .rating label:hover ~ label, .rating input[type="radio"]:checked ~ label {
+
+/* Fill stars to the left on checked */
+.rating label:hover,
+.rating label:hover ~ label,
+.rating input[type="radio"]:checked ~ label {
+  color: #ccc;
+}
+
+.rating input[type="radio"]:checked + label,
+.rating input[type="radio"]:checked + label ~ label,
+.rating label:hover,
+.rating label:hover ~ label {
   color: #4A90E2;
 }
 textarea {
@@ -288,13 +341,70 @@ textarea {
   background: #fff;
   padding: 1.5rem 2rem;
   border-radius: 10px;
-  width: 90%; max-width: 450px;
+  width: 95%;
+  max-width: 350px;
+  max-height: 450px;
+  overflow-y: auto; 
   box-shadow: 0 0 20px rgba(0,0,0,0.3);
-  color: #333; position: relative;
+  color: #333;
+  position: relative;
 }
 .close-button {
   position: absolute; top: 10px; right: 15px;
   font-size: 1.5rem; font-weight: 700; color: #666; cursor: pointer;
+}
+/* Subscription popup styling to match booking modal */
+.subscription-popup {
+  background: #fff;
+  padding: 1.5rem 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  color: #333;
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  max-width: 350px;
+  width: 95%;
+  max-height: 450px;
+  overflow-y: auto;
+  border: none;
+}
+.subscription-popup label {
+  display: block;
+  margin-top: 0.75rem;
+  font-weight: 600;
+}
+.subscription-popup input,
+.subscription-popup textarea {
+  width: 100%;
+  padding: 0.4rem 0.5rem;
+  margin-top: 0.3rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-family: "Montserrat", sans-serif;
+  resize: vertical;
+  margin-bottom: 0.8rem;
+}
+.subscription-popup button[type="submit"] {
+  margin-top: 1rem;
+  background-color: #0066cc;
+  border: none;
+  color: white;
+  font-weight: 700;
+  padding: 0.6rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "Montserrat", sans-serif;
+  transition: background-color 0.3s ease;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.subscription-popup button[type="submit"]:hover {
+  background-color: #004a99;
 }
 
 /* ========= RESPONSIVE ========= */
@@ -368,22 +478,18 @@ textarea {
   position: relative;
   overflow: visible;
 }
-
 .fc .fc-button,
 .fc .fc-button-primary,
 .fc .fc-button-group > .fc-button,
 .fc .fc-button-group > .fc-button-primary,
 .fc .fc-today-button,
+.fc .fc-button.fc-today-button,
+.fc .fc-button-primary.fc-today-button,
 .fc .fc-prev-button,
 .fc .fc-next-button {
   background: #0B3D91 !important;
   color: #fff !important;
   border: 1.5px solid #fff !important;
-  box-shadow: none !important;
-  border-radius: 6px !important;
-  font-weight: 600;
-  outline: none !important;
-  transition: none !important;
 }
 
 .fc .fc-button:disabled,
@@ -430,4 +536,9 @@ textarea {
   .service-area-img {
     max-width: 100%;
   }
+}
+.slots-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }

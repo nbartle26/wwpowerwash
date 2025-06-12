@@ -1,368 +1,467 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>WashWizards - Schedule</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>WashWizards - Schedule</title>
 
-  <!-- Montserrat Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
+    <!-- Montserrat Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
 
-  <!-- External CSS -->
-  <link rel="stylesheet" href="style.css" />
+    <!-- External CSS -->
+    <link rel="stylesheet" href="style.css" />
 
-  <!-- FullCalendar CSS -->
-  <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css' rel='stylesheet' />
+    <!-- FullCalendar CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css"
+      rel="stylesheet"
+    />
 
-  <style>
-    .services-list {
-      display: block;
-      background: #4A90E2;
-      color: #E6F0FF;
-      border-radius: 10px;
-      padding: 2rem;
-      margin: 2rem auto;
-      max-width: 1300px; /* match your inline style */
-      box-shadow: 0 0 15px rgba(0,0,0,0.3);
-      position: relative;
-      min-height: 300px;
-    }
-    .services-list > div {
-    width: 100%;
-    }
-    .services-list::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background-color: rgba(0, 102, 204, 0.65); /* semi-transparent blue overlay */
-      border-radius: 10px;
-      z-index: 0;
-    }
-    .services-list > * {
-      position: relative;
-      z-index: 1;
-    }
-
-    /* Style calendar to be centered and with white background for clarity */
-    #calendar {
-      background-color: white;
-      border-radius: 8px;
-      padding: 1rem;
-      max-width: 700px;
-      margin: 1rem auto;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    }
-
-    /* Modal styles */
-    .modal {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.6);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-    }
-    .modal.hidden {
-      display: none;
-    }
-    .modal-content {
-      background: white;
-      padding: 1.5rem 2rem;
-      border-radius: 10px;
-      width: 90%;
-      max-width: 450px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.3);
-      color: #333;
-      position: relative;
-    }
-    .close-button {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #666;
-      cursor: pointer;
-    }
-    .modal-content label {
-      display: block;
-      margin-top: 0.75rem;
-      font-weight: 600;
-    }
-    .modal-content input,
-    .modal-content select,
-    .modal-content textarea {
-      width: 100%;
-      padding: 0.4rem 0.5rem;
-      margin-top: 0.3rem;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 1rem;
-      font-family: 'Montserrat', sans-serif;
-      resize: vertical;
-    }
-    .quote-button {
-      margin-top: 1rem;
-      background-color: #0066cc;
-      border: none;
-      color: white;
-      font-weight: 700;
-      padding: 0.6rem 1rem;
-      border-radius: 5px;
-      cursor: pointer;
-      font-family: 'Montserrat', sans-serif;
-      transition: background-color 0.3s ease;
-    }
-    .quote-button:hover {
-      background-color: #004a99;
-    }
-  </style>
-</head>
-<body>
-  <nav class="topnav">
-    <div class="topnav-left">
-      <input type="search" placeholder="Search..." class="search-bar" aria-label="Search site" />
-      <div class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="services.html">Services</a>
-        <a href="schedule.html">Schedule Us</a>
-        <a href="reviews.html">Reviews</a>
-        <a href="#contact">Contact Us</a>
+    <style>
+      .services-list {
+        display: block;
+        background: #4a90e2;
+        color: #e6f0ff;
+        border-radius: 10px;
+        padding: 2rem;
+        margin: 2rem auto;
+        max-width: 1300px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        position: relative;
+        min-height: 300px;
+      }
+      body {
+        background: url("schedulebackground.jpg") no-repeat center center fixed;
+        background-size: cover;
+        min-height: 225vh;
+      }
+      .services-list > div {
+        width: 100%;
+      }
+      .services-list::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #4a90e2;
+        border-radius: 10px;
+        z-index: 0;
+      }
+      .services-list > * {
+        position: relative;
+        z-index: 1;
+      }
+      #calendar {
+        background-color: white;
+        border-radius: 8px;
+        padding: 1rem;
+        max-width: 700px;
+        margin: 1rem auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      }
+      .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.6);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+      }
+      .modal.hidden {
+        display: none;
+      }
+      .modal-content {
+        background: white;
+        padding: 1.5rem 2rem;
+        border-radius: 10px;
+        width: 90%;
+        max-width: 450px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        color: #333;
+        position: relative;
+      }
+      .close-button {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #666;
+        cursor: pointer;
+      }
+      .modal-content label {
+        display: block;
+        margin-top: 0.75rem;
+        font-weight: 600;
+      }
+      .modal-content input,
+      .modal-content select,
+      .modal-content textarea {
+        width: 100%;
+        padding: 0.4rem 0.5rem;
+        margin-top: 0.3rem;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 1rem;
+        font-family: "Montserrat", sans-serif;
+        resize: vertical;
+      }
+      .quote-button {
+        margin-top: 1rem;
+        background-color: #0066cc;
+        border: none;
+        color: white;
+        font-weight: 700;
+        padding: 0.6rem 1rem;
+        border-radius: 5px;
+        cursor: pointer;
+        font-family: "Montserrat", sans-serif;
+        transition: background-color 0.3s ease;
+      }
+      .quote-button:hover {
+        background-color: #004a99;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="topnav">
+      <div class="topnav-left">
+        <input
+          type="search"
+          placeholder="Search..."
+          class="search-bar"
+          aria-label="Search site"
+        />
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="services.html">Services</a>
+          <a href="schedule.html">Schedule Us</a>
+          <a href="reviews.html">Reviews</a>
+          <a href="#contact">Contact Us</a>
+        </div>
       </div>
-    </div>
-    <div class="topnav-right">
-      <span>WashWizards</span>
-      <img src="WashWizardsLogo.jpg" alt="WashWizards Logo" />
-    </div>
-  </nav>
-
-  <main>
-<section class="services-list" role="region" aria-label="List of services offered">
-  <div>
-    <h2 class="about-heading">Online Booking System</h2>
-    <p class="subtitle">Choose a convenient date and time that works best for you. We'll handle the rest!</p>
-    <div id='calendar'></div>
-  </div>
-</section>
-
-
-
-    <!-- Booking Form Modal -->
-    <div id="bookingModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <div class="modal-content equipment-section">
-        <span class="close-button" role="button" aria-label="Close booking form">&times;</span>
-        <h2 id="modalTitle" class="section-title">Schedule Your Appointment</h2>
-        <form id="bookingForm">
-          <label for="firstName">First Name</label>
-          <input type="text" id="firstName" name="firstName" required />
-
-          <label for="lastName">Last Name</label>
-          <input type="text" id="lastName" name="lastName" required />
-
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" required />
-
-          <label for="phone">Phone Number</label>
-          <input type="tel" id="phone" name="phone" />
-
-          <label for="address">Address</label>
-          <input type="text" id="address" name="address" />
-
-          <label for="additionalInfo">Additional Information</label>
-          <textarea id="additionalInfo" name="additionalInfo" rows="3"></textarea>
-
-          <label for="timeSlot">Time Slot</label>
-          <select id="timeSlot" name="timeSlot" required>
-            <option value="8:00 AM">8:00 AM</option>
-            <option value="10:00 AM">10:00 AM</option>
-            <option value="12:00 PM">12:00 PM</option>
-            <option value="2:00 PM">2:00 PM</option>
-            <option value="4:00 PM">4:00 PM</option>
-          </select>
-
-          <button type="submit" class="quote-button">Confirm Booking</button>
-        </form>
+      <div class="topnav-right">
+        <span>WashWizards</span>
+        <img src="WashWizardsLogo.jpg" alt="WashWizards Logo" />
       </div>
-    </div>
+    </nav>
 
-    <!-- FullCalendar + Script -->
-<link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        const calendarEl = document.getElementById('calendar');
-        const modal = document.getElementById('bookingModal');
-        const closeBtn = document.querySelector('.close-button');
-        const bookingForm = document.getElementById('bookingForm');
+    <main>
+      <section
+        class="services-list"
+        role="region"
+        aria-label="List of services offered"
+      >
+        <div>
+          <h2 class="about-heading">Online Booking System</h2>
+          <p class="subtitle">
+            Choose a convenient date and time that works best for you. We'll
+            handle the rest!
+          </p>
+          <div id="calendar"></div>
+        </div>
+      </section>
 
-        // Keep track of booked slots to prevent double booking
-        const bookedSlots = [];
+      <!-- Booking Form Modal -->
+      <div
+        id="bookingModal"
+        class="modal hidden"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modalTitle"
+      >
+        <div class="modal-content equipment-section">
+          <span
+            class="close-button"
+            role="button"
+            aria-label="Close booking form"
+            >&times;</span
+          >
+          <h2 id="modalTitle" class="section-title">
+            Schedule Your Appointment
+          </h2>
+          <form id="bookingForm">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" name="firstName" required />
 
-        const calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth',
-          selectable: true,
-          selectMirror: true,
-          // Prevent selecting past dates
-          validRange: {
-            start: new Date().toISOString().slice(0, 10)
-          },
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="lastName" required />
 
-            dayCellDidMount: function(arg) {
-              // Only add slots to day cells in the month view
-              if (arg.view.type !== "dayGridMonth") return;
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required />
 
-              const timeSlots = [
-                "8:00 AM", "10:00 AM", "12:00 PM",
-                "2:00 PM", "4:00 PM", "6:00 PM"
-              ];
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" required />
 
-                const today = new Date();
-                today.setHours(0,0,0,0);
+            <label for="address">Address</label>
+            <input type="text" id="address" name="address" required />
 
-                const cellDate = new Date(arg.date);
-                cellDate.setHours(0,0,0,0);
+            <label for="additionalInfo">Additional Information</label>
+            <textarea
+              id="additionalInfo"
+              name="additionalInfo"
+              rows="3"
+            ></textarea>
 
-                // Only show slots for today and future days
-                if (cellDate < today) return;
+            <label for="timeSlot">Time Slot</label>
+            <select id="timeSlot" name="timeSlot" required>
+              <option value="8:00 AM">8:00 AM</option>
+              <option value="10:00 AM">10:00 AM</option>
+              <option value="12:00 PM">12:00 PM</option>
+              <option value="2:00 PM">2:00 PM</option>
+              <option value="4:00 PM">4:00 PM</option>
+            </select>
 
-              // Create a container for the slots
-              const slotsContainer = document.createElement('div');
-              slotsContainer.style.display = 'flex';
-              slotsContainer.style.flexDirection = 'column';
-              slotsContainer.style.alignItems = 'flex-start';
+            <button type="submit" class="quote-button">Confirm Booking</button>
+          </form>
+        </div>
+      </div>
 
+      <!-- FullCalendar + Script -->
+      <link
+        href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css"
+        rel="stylesheet"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const calendarEl = document.getElementById("calendar");
+  const modal = document.getElementById("bookingModal");
+  const closeBtn = document.querySelector(".close-button");
+  const bookingForm = document.getElementById("bookingForm");
 
-                              // For today, filter out past time slots
-                let filteredSlots = timeSlots;
-                if (cellDate.getTime() === today.getTime()) {
-                  const now = new Date();
-                  filteredSlots = timeSlots.filter(slot => {
-                    // Convert slot to 24-hour time for comparison
-                    const [time, modifier] = slot.split(' ');
-                    let [hours, minutes] = time.split(':');
-                    if (hours === '12') hours = '00';
-                    if (modifier === 'PM') hours = parseInt(hours, 10) + 12;
-                    const slotDate = new Date(cellDate);
-                    slotDate.setHours(parseInt(hours, 10), parseInt(minutes, 10), 0, 0);
-                    return slotDate > now;
-                  });
-                }
+  // Keep track of booked slots to prevent double booking
+  let bookedSlots = [];
 
-              filteredSlots.forEach(slot => {
-                const slotDiv = document.createElement('div');
-                slotDiv.textContent = slot;
-                slotDiv.style.backgroundColor = '#28a745';
-                slotDiv.style.color = 'white';
-                slotDiv.style.fontSize = '0.7rem';
-                slotDiv.style.borderRadius = '4px';
-                slotDiv.style.padding = '2px 8px';
-                slotDiv.style.margin = '1px 0 0 18px';
-                slotDiv.style.cursor = 'pointer';
-                slotDiv.style.width = '54px';
-                slotDiv.style.textAlign = 'center';
+  fetch("http://localhost:3000/api/booked-slots")
+    .then(res => res.json())
+    .then(data => {
+      bookedSlots = data;
 
-                slotDiv.addEventListener('click', (e) => {
-                  e.stopPropagation();
-                  bookingForm.setAttribute('data-date', arg.date.toISOString().slice(0,10));
-                  bookingForm.timeSlot.value = slot;
-                  bookingForm.reset();
-                  modal.classList.remove('hidden');
-                });
+      const calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: "dayGridMonth",
+        selectable: true,
+        selectMirror: true,
+        validRange: {
+          start: new Date().toISOString().slice(0, 10),
+        },
+        buttonText: {
+          today: "Today"
+        },
+        dayCellDidMount: function (arg) {
+          if (arg.view.type !== "dayGridMonth") return;
+          const oldSlots = arg.el.querySelectorAll('.slots-container');
+          oldSlots.forEach(el => el.remove());
 
-              slotsContainer.appendChild(slotDiv);
+          const timeSlots = [
+            "8:00 AM",
+            "10:00 AM",
+            "12:00 PM",
+            "2:00 PM",
+            "4:00 PM",
+            "6:00 PM",
+          ];
+
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+
+          const cellDate = new Date(arg.date);
+          cellDate.setHours(0, 0, 0, 0);
+
+          if (cellDate < today) return;
+
+          const slotsContainer = document.createElement("div");
+          slotsContainer.className = "slots-container";
+          slotsContainer.style.display = "flex";
+          slotsContainer.style.flexDirection = "column";
+          slotsContainer.style.alignItems = "flex-start";
+
+          let filteredSlots = timeSlots;
+          if (cellDate.getTime() === today.getTime()) {
+            const now = new Date();
+            filteredSlots = timeSlots.filter((slot) => {
+              const [time, modifier] = slot.split(" ");
+              let [hours, minutes] = time.split(":");
+              if (hours === "12") hours = "00";
+              if (modifier === "PM") hours = parseInt(hours, 10) + 12;
+              const slotDate = new Date(cellDate);
+              slotDate.setHours(
+                parseInt(hours, 10),
+                parseInt(minutes, 10),
+                0,
+                0
+              );
+              return slotDate > now;
             });
-              // Append the slots below the date number
-              arg.el.appendChild(slotsContainer);
+          }
 
-            },
-            // ...keep the rest of your config...
-            dateClick: function (info) {
-              // Store clicked date for form submission
-              bookingForm.setAttribute('data-date', info.dateStr);
+          filteredSlots.forEach((slot) => {
+            const bookingId = `${arg.date
+              .toISOString()
+              .slice(0, 10)}_${slot}`;
+            if (bookedSlots.includes(bookingId)) return; // Don't show if already booked
 
-              // Reset form and open modal
+            const slotDiv = document.createElement("div");
+            slotDiv.textContent = slot;
+            slotDiv.style.backgroundColor = "#28a745";
+            slotDiv.style.color = "white";
+            slotDiv.style.fontSize = "0.7rem";
+            slotDiv.style.borderRadius = "4px";
+            slotDiv.style.padding = "2px 8px";
+            slotDiv.style.margin = "1px 0 0 18px";
+            slotDiv.style.cursor = "pointer";
+            slotDiv.style.width = "54px";
+            slotDiv.style.textAlign = "center";
+            slotDiv.dataset.bookingId = bookingId; // For removal later
+
+            slotDiv.addEventListener("click", (e) => {
+              e.stopPropagation();
+              bookingForm.setAttribute(
+                "data-date",
+                arg.date.toISOString().slice(0, 10)
+              );
               bookingForm.reset();
-              modal.classList.remove('hidden');
-            },
-            events: [],
+              bookingForm.timeSlot.value = slot;
+              modal.classList.remove("hidden");
+
+              // Store reference to the clicked slotDiv for removal after booking
+              bookingForm._currentSlotDiv = slotDiv;
+            });
+
+            slotsContainer.appendChild(slotDiv);
           });
+          arg.el.appendChild(slotsContainer);
+        },
+        events: [],
+      });
 
-        calendar.render();
+      // THIS IS THE KEY: render the calendar after it's created
+      calendar.render();
 
-        // Close modal handler
-        closeBtn.onclick = () => modal.classList.add('hidden');
-
-        // Close modal if user clicks outside modal content
-        modal.addEventListener('click', (e) => {
-          if (e.target === modal) {
-            modal.classList.add('hidden');
-          }
-        });
-
-        // Handle booking form submission
-        bookingForm.onsubmit = (e) => {
-          e.preventDefault();
-
-          const date = bookingForm.getAttribute('data-date');
-          const firstName = bookingForm.firstName.value.trim();
-          const lastName = bookingForm.lastName.value.trim();
-          const email = bookingForm.email.value.trim();
-          const phone = bookingForm.phone.value.trim();
-          const address = bookingForm.address.value.trim();
-          const additionalInfo = bookingForm.additionalInfo.value.trim();
-          const timeSlot = bookingForm.timeSlot.value;
-
-          // Create a unique id for booking to check duplicates
-          const bookingId = `${date}_${timeSlot}`;
-
-          // Check if this slot is already booked
-          if (bookedSlots.includes(bookingId)) {
-            alert(`Sorry, the ${timeSlot} slot on ${date} is already booked. Please select another slot.`);
-            return;
-          }
-
-          // Save booked slot
-          bookedSlots.push(bookingId);
-
-          // Add event to calendar
-          calendar.addEvent({
-            id: bookingId,
-            title: `Booked: ${firstName} ${lastName}`,
-            start: date + 'T' + convertTo24Hour(timeSlot),
-            allDay: false,
-          });
-
-          alert(`Booking Confirmed!\nName: ${firstName} ${lastName}\nDate: ${date}\nTime: ${timeSlot}`);
-
-          bookingForm.reset();
-          modal.classList.add('hidden');
-        };
-
-        // Utility to convert 12-hour time to 24-hour format for FullCalendar
-        function convertTo24Hour(time12h) {
-          const [time, modifier] = time12h.split(' ');
-          let [hours, minutes] = time.split(':');
-
-          if (hours === '12') {
-            hours = '00';
-          }
-          if (modifier === 'PM') {
-            hours = parseInt(hours, 10) + 12;
-          }
-          return `${hours.toString().padStart(2,'0')}:${minutes || '00'}`;
+      // Modal close logic
+      closeBtn.onclick = () => modal.classList.add("hidden");
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) {
+          modal.classList.add("hidden");
         }
       });
-      
-    </script>
-  </main>
 
-  <footer class="footer" id="contact" role="contentinfo" aria-label="Contact information and footer navigation">
-    <p><strong>Contact Us</strong></p>
-    <p>999-999-9999 | dummyemail@gmail.com</p>
-    <a href="privacystatement.pdf" target="_blank" rel="noopener noreferrer">Privacy Statement</a> | 
-    <a href="termsofservice.pdf" target="_blank" rel="noopener noreferrer">Terms & Conditions</a>
-  </footer>
+      // Booking form submission logic
+      bookingForm.onsubmit = (e) => {
+        e.preventDefault();
 
-</body>
+        const date = bookingForm.getAttribute("data-date");
+        const firstName = bookingForm.firstName.value.trim();
+        const lastName = bookingForm.lastName.value.trim();
+        const email = bookingForm.email.value.trim();
+        const phone = bookingForm.phone.value.trim();
+        const address = bookingForm.address.value.trim();
+        const additionalInfo = bookingForm.additionalInfo.value.trim();
+        const timeSlot = bookingForm.timeSlot.value;
+
+        // Phone validation: must be 10 digits (US style)
+        const phoneDigits = phone.replace(/\D/g, "");
+        if (phoneDigits.length !== 10) {
+          alert("Please enter a valid 10-digit phone number.");
+          bookingForm.phone.focus();
+          return;
+        }
+
+        // Check all required fields (HTML5 required will also help)
+        if (
+          !firstName ||
+          !lastName ||
+          !email ||
+          !phone ||
+          !address ||
+          !timeSlot
+        ) {
+          alert("Please fill out all required fields.");
+          return;
+        }
+
+        // Create a unique id for booking to check duplicates
+        const bookingId = `${date}_${timeSlot}`;
+
+        // Check if this slot is already booked
+        if (bookedSlots.includes(bookingId)) {
+          alert(
+            `Sorry, the ${timeSlot} slot on ${date} is already booked. Please select another slot.`
+          );
+          return;
+        }
+
+        // Save booked slot locally for immediate UI update
+        bookedSlots.push(bookingId);
+        if (bookingForm._currentSlotDiv) {
+          bookingForm._currentSlotDiv.remove();
+          bookingForm._currentSlotDiv = null;
+        }
+
+        // Send to backend
+        fetch("http://localhost:3000/api/customers", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            firstName,
+            lastName,
+            email,
+            phone,
+            address,
+            bookingDate: date,
+            timeSlot: timeSlot,
+            additionalInfo: additionalInfo
+          }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            alert(
+              `Booking Confirmed!\nName: ${firstName} ${lastName}\nDate: ${date}\nTime: ${timeSlot}\n\nAppointment successfully booked. A team member will contact you shortly with additional details!`
+            );
+            bookingForm.reset();
+            modal.classList.add("hidden");
+            // Refetch booked slots and re-render calendar to update UI
+            fetch("http://localhost:3000/api/booked-slots")
+              .then(res => res.json())
+              .then(data => {
+                bookedSlots = data;
+                calendar.rerenderDates();
+              });
+          })
+          .catch((err) => {
+            console.error("Error saving to database:", err);
+            alert("There was an error saving your booking.");
+          });
+      };
+    });
+});
+</script>
+    </main>
+
+    <footer
+      class="footer"
+      id="contact"
+      role="contentinfo"
+      aria-label="Contact information and footer navigation"
+    >
+      <p><strong>Contact Us</strong></p>
+      <p>919-886-2678 | bvcatullo@icloud.com</p>
+      <a href="privacystatement.pdf" target="_blank" rel="noopener noreferrer"
+        >Privacy Statement</a
+      >
+      |
+      <a href="termsofservice.pdf" target="_blank" rel="noopener noreferrer"
+        >Terms & Conditions</a
+      >
+    </footer>
+  </body>
 </html>

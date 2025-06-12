@@ -13,6 +13,15 @@
 
   <!-- Link to external stylesheet -->
   <link rel="stylesheet" href="style.css" />
+
+    <style>
+    body {
+      background: url('reviewsbackground.jpg') no-repeat center center fixed;
+      background-size: cover;
+      min-height: 225vh;
+    }
+  </style>
+  
 </head>
 <body>
 
@@ -58,22 +67,22 @@
       <h2>Leave a Review</h2>
       <form id="reviewForm">
         <div class="rating" aria-label="Star rating">
-          <input type="radio" id="star1" name="rating" value="1" />
+          <input type="radio" id="star1" name="rating" value="5" />
           <label for="star1" title="1 star">★</label>
 
-          <input type="radio" id="star2" name="rating" value="2" />
+          <input type="radio" id="star2" name="rating" value="4" />
           <label for="star2" title="2 stars">★</label>
 
           <input type="radio" id="star3" name="rating" value="3" />
           <label for="star3" title="3 stars">★</label>
 
-          <input type="radio" id="star4" name="rating" value="4" />
+          <input type="radio" id="star4" name="rating" value="2" />
           <label for="star4" title="4 stars">★</label>
 
-          <input type="radio" id="star5" name="rating" value="5" />
+          <input type="radio" id="star5" name="rating" value="1" />
           <label for="star5" title="5 stars">★</label>
         </div>
-
+        <input type="text" id="reviewerName" name="reviewerName" placeholder="Enter your name" required />
         <textarea
           id="reviewText"
           name="reviewText"
@@ -108,65 +117,68 @@
 </section>
 
 <!-- Hidden popup form container (initially hidden) -->
-<div id="subscribe-popup" style="display:none; position:fixed; top:20%; left:50%; transform:translateX(-50%);
-background:white; padding:20px; border:2px solid black; z-index:1000; max-width:300px;">
-  <form id="subscribe-form">
-    <label for="firstName">First Name:</label><br />
-    <input type="text" id="firstName" name="firstName" required /><br /><br />
+<div id="subscribe-popup" class="modal" style="display:none;">
+  <div class="modal-content subscription-popup">
+    <form id="subscribe-form">
+      <label for="firstName">First Name:</label>
+      <input type="text" id="firstName" name="firstName" required />
 
-    <label for="lastName">Last Name:</label><br />
-    <input type="text" id="lastName" name="lastName" required /><br /><br />
+      <label for="lastName">Last Name:</label>
+      <input type="text" id="lastName" name="lastName" required />
 
-    <label for="email">Email:</label><br />
-    <input type="email" id="email" name="email" required /><br /><br />
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required />
 
-    <label for="phone">Phone Number:</label><br />
-    <input type="tel" id="phone" name="phone" /><br /><br />
+      <label for="phone">Phone Number:</label>
+      <input type="tel" id="phone" name="phone" required />
 
-    <label for="address">Address:</label><br />
-    <input type="text" id="address" name="address" /><br /><br />
+      <label for="address">Address:</label>
+      <input type="text" id="address" name="address" required />
 
-    <button type="submit">Submit</button>
-  </form>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
 </div>
-
 <script>
-  function openSubscribeForm() {
-    document.getElementById('subscribe-popup').style.display = 'block';
+function openSubscribeForm() {
+  document.getElementById('subscribe-popup').style.display = 'flex';
+}
+
+// Close popup when clicking outside the form
+document.getElementById('subscribe-popup').addEventListener('click', function(event) {
+  if (event.target === this) {
+    this.style.display = 'none';
   }
+});
 
-  // Close popup when clicking outside the form
-  document.getElementById('subscribe-popup').addEventListener('click', function(event) {
-    if (event.target === this) {
-      this.style.display = 'none';
-    }
-  });
+ document.getElementById('subscribe-form').addEventListener('submit', function(event) {
+  event.preventDefault();
 
-  document.getElementById('subscribe-form').addEventListener('submit', function(event) {
-    event.preventDefault(); // stop actual form submit and page reload
+  const customerData = {
+    firstName: this.firstName.value.trim(),
+    lastName: this.lastName.value.trim(),
+    email: this.email.value.trim(),
+    phone: this.phone.value.trim(),
+    address: this.address.value.trim()
+  };
 
-    // Collect data from form fields
-    const customerData = {
-      firstName: this.firstName.value.trim(),
-      lastName: this.lastName.value.trim(),
-      email: this.email.value.trim(),
-      phone: this.phone.value.trim(),
-      address: this.address.value.trim()
-    };
-
-    // For now: print to console to verify
-    console.log('Customer Data Submitted:', customerData);
-
-    // Hide the popup
-    document.getElementById('subscribe-popup').style.display = 'none';
-
-    // Reset the form fields
-    this.reset();
-
-    alert('Thank you for subscribing!');
-
-    // Next step: send this data to your customer database
-  });
+  // Send to backend
+  fetch("http://localhost:3000/api/subscribe", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(customerData)
+  })
+    .then(res => res.json())
+    .then(data => {
+      alert(data.message || "Thank you for subscribing!");
+      document.getElementById('subscribe-popup').style.display = 'none';
+      this.reset();
+    })
+    .catch(err => {
+      alert("There was an error saving your subscription.");
+      console.error(err);
+    });
+});
 </script>
 
 <br />
@@ -174,18 +186,70 @@ background:white; padding:20px; border:2px solid black; z-index:1000; max-width:
 
 <footer class="footer" id="contact" role="contentinfo" aria-label="Contact information and footer navigation">
   <p><strong>Contact Us</strong></p>
-  <p>999-999-9999 | dummyemail@gmail.com</p>
+    <p>919-886-2678 | bvcatullo@icloud.com</p>
   <a href="privacystatement.pdf" target="_blank" rel="noopener noreferrer">Privacy Statement</a> | 
   <a href="termsofservice.pdf" target="_blank" rel="noopener noreferrer">Terms & Conditions</a>
 </footer>
 
 
+<script>
+  // Load and display reviews from localStorage
+      function loadReviews() {
+      const reviewsList = document.getElementById('reviewsList');
+      reviewsList.innerHTML = '';
+      const reviews = JSON.parse(localStorage.getItem('reviews') || '[]');
+      reviews.forEach(review => {
+        const div = document.createElement('div');
+        div.className = 'review-item';
+        div.innerHTML = `
+          <div class="review-stars">${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}</div>
+          <div class="reviewer-name" style="font-weight:600; color:#0B3D91; margin-bottom:2px;">${review.name}</div>
+          <div class="review-text">${review.text}</div>
+        `;
+        reviewsList.appendChild(div);
+      });
+    }
 
+  // Handle review form submission
+  document.getElementById('reviewForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    // Get selected rating
+    const rating = document.querySelector('input[name="rating"]:checked');
+    const reviewerName = document.getElementById('reviewerName').value.trim();
+    const reviewText = document.getElementById('reviewText').value.trim();
+
+    // Require a star rating
+    if (!rating) {
+      alert('Please select a star rating.');
+      return;
+    }
+    if (!reviewerName) {
+      alert('Please enter your name.');
+      return;
+    }
+
+    // Save review
+    const review = {
+      name: reviewerName,
+      rating: parseInt(rating.value, 10),
+      text: reviewText
+    };
+    const reviews = JSON.parse(localStorage.getItem('reviews') || '[]');
+    reviews.unshift(review); // newest first
+    localStorage.setItem('reviews', JSON.stringify(reviews));
+
+    // Reset form and reload reviews
+    this.reset();
+    loadReviews();
+  });
+
+  // Load reviews on page load
+  document.addEventListener('DOMContentLoaded', loadReviews);
+</script>
  
 </body>
 </html>
-    // Initial render
-    renderReviews();
   </script>
 </body>
 </html>
