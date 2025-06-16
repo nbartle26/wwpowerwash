@@ -4,17 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>WashWizards - Schedule</title>
-
-    <!-- Montserrat Font -->
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap"
       rel="stylesheet"
     />
-
-    <!-- External CSS -->
     <link rel="stylesheet" href="style.css" />
-
-    <!-- FullCalendar CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css"
       rel="stylesheet"
@@ -421,6 +415,7 @@ document.addEventListener("DOMContentLoaded", function () {
             );
             bookingForm.reset();
             modal.classList.add("hidden");
+            location.reload();
             // Refetch booked slots and re-render calendar to update UI
             fetch("http://localhost:3000/api/booked-slots")
               .then(res => res.json())
@@ -455,6 +450,7 @@ document.addEventListener("DOMContentLoaded", function () {
       <a href="termsofservice.pdf" target="_blank" rel="noopener noreferrer"
         >Terms & Conditions</a
       >
+      <p>Fully Licensed | Fully Insured</p>
     </footer>
 
     <script>

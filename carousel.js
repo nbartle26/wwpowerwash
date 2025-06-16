@@ -1,4 +1,4 @@
-const images = ["MiscProjects/wwpowerwash/homepage1.jpg", "MiscProjects/wwpowerwash/homepage2.jpg", "MiscProjects/wwpowerwash/homepage3.jpg"];
+const images = ["photos/aboutme1.jpg", "aboutme2.jpg", "aboutme3.jpg"];
 let currentIndex = 0;
 
 function showNextImage() {

@@ -4,14 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>WashWizards - Reviews</title>
-
-  <!-- Load Montserrat font from Google Fonts -->
   <link
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap"
     rel="stylesheet"
   />
-
-  <!-- Link to external stylesheet -->
   <link rel="stylesheet" href="style.css" />
 
     <style>
@@ -63,8 +59,7 @@
 <br><br>
     <section class="review-form" aria-label="Leave a review form">
       <h2>Leave a Review</h2>
-      <form id="reviewForm">
-        <div class="rating" aria-label="Star rating">
+      <div class="rating" aria-label="Star rating">
           <input type="radio" id="star1" name="rating" value="5" />
           <label for="star1" title="1 star">★</label>
 
@@ -80,15 +75,19 @@
           <input type="radio" id="star5" name="rating" value="1" />
           <label for="star5" title="5 stars">★</label>
         </div>
-        <input type="text" id="reviewerName" name="reviewerName" placeholder="Enter your name" required />
-        <textarea
-          id="reviewText"
-          name="reviewText"
-          placeholder="Write your review here..."
-          required
-        ></textarea>
-        <button type="submit" class="submit-review">Submit Review</button>
-      </form>
+        <form id="reviewForm" enctype="multipart/form-data">
+          <input type="text" id="reviewerName" name="reviewerName" placeholder="Enter your name" required />
+          <textarea
+            id="reviewText"
+            name="reviewText"
+            placeholder="Write your review here..."
+            required
+          ></textarea>
+        <label for="reviewImages"><b><u>Attach Media Here:</u></b></label>
+<input type="file" id="reviewImages" name="reviewImages" accept="image/*" multiple />
+<div id="selected-files" class="selected-files"></div>
+          <button type="submit" class="submit-review">Submit Review</button>
+        </form>
     </section>
   </main>
 
@@ -187,6 +186,7 @@ document.getElementById('subscribe-popup').addEventListener('click', function(ev
     <p>919-886-2678 | bvcatullo@icloud.com</p>
   <a href="privacystatement.pdf" target="_blank" rel="noopener noreferrer">Privacy Statement</a> | 
   <a href="termsofservice.pdf" target="_blank" rel="noopener noreferrer">Terms & Conditions</a>
+  <p>Fully Licensed | Fully Insured</p>
 </footer>
 
 
@@ -199,11 +199,43 @@ document.getElementById('subscribe-popup').addEventListener('click', function(ev
       reviews.forEach(review => {
         const div = document.createElement('div');
         div.className = 'review-item';
-        div.innerHTML = `
+
+        // Create a container for the columns
+        const columns = document.createElement('div');
+        columns.className = 'review-columns';
+
+        // Left column: text
+        const textCol = document.createElement('div');
+        textCol.className = 'review-text-col';
+        textCol.innerHTML = `
           <div class="review-stars">${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}</div>
           <div class="reviewer-name" style="font-weight:600; color:#0B3D91; margin-bottom:2px;">${review.name}</div>
           <div class="review-text">${review.text}</div>
         `;
+
+        // Right column: images (if any)
+        const imgCol = document.createElement('div');
+        imgCol.className = 'review-img-col';
+
+        if (review.images && review.images.length > 0) {
+          // Display up to 2 images per row
+          for (let i = 0; i < review.images.length; i += 2) {
+            const row = document.createElement('div');
+            row.className = 'review-img-row';
+            for (let j = i; j < i + 2 && j < review.images.length; j++) {
+              const img = document.createElement('img');
+              img.src = review.images[j];
+              img.alt = "Review image";
+              img.className = 'review-img';
+              row.appendChild(img);
+            }
+            imgCol.appendChild(row);
+          }
+        }
+
+        columns.appendChild(textCol);
+        columns.appendChild(imgCol);
+        div.appendChild(columns);
         reviewsList.appendChild(div);
       });
     }
@@ -212,12 +244,12 @@ document.getElementById('subscribe-popup').addEventListener('click', function(ev
   document.getElementById('reviewForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
-    // Get selected rating
     const rating = document.querySelector('input[name="rating"]:checked');
     const reviewerName = document.getElementById('reviewerName').value.trim();
     const reviewText = document.getElementById('reviewText').value.trim();
+    const imagesInput = document.getElementById('reviewImages');
+    const files = Array.from(imagesInput.files);
 
-    // Require a star rating
     if (!rating) {
       alert('Please select a star rating.');
       return;
@@ -227,19 +259,28 @@ document.getElementById('subscribe-popup').addEventListener('click', function(ev
       return;
     }
 
-    // Save review
-    const review = {
-      name: reviewerName,
-      rating: parseInt(rating.value, 10),
-      text: reviewText
-    };
-    const reviews = JSON.parse(localStorage.getItem('reviews') || '[]');
-    reviews.unshift(review); // newest first
-    localStorage.setItem('reviews', JSON.stringify(reviews));
+    // Read all images as Data URLs
+    const readImages = files.map(file => {
+      return new Promise(resolve => {
+        const reader = new FileReader();
+        reader.onload = e => resolve(e.target.result);
+        reader.readAsDataURL(file);
+      });
+    });
 
-    // Reset form and reload reviews
-    this.reset();
-    loadReviews();
+    Promise.all(readImages).then(imageDataUrls => {
+      const review = {
+        name: reviewerName,
+        rating: parseInt(rating.value, 10),
+        text: reviewText,
+        images: imageDataUrls // Array of Data URLs
+      };
+      const reviews = JSON.parse(localStorage.getItem('reviews') || '[]');
+      reviews.unshift(review); // newest first
+      localStorage.setItem('reviews', JSON.stringify(reviews));
+      this.reset();
+      loadReviews();
+    });
   });
 
   // Load reviews on page load
@@ -306,9 +347,53 @@ document.addEventListener('click', (e) => {
   }
 });
 </script>
+<script>
+let selectedFiles = [];
+
+const reviewImagesInput = document.getElementById('reviewImages');
+const selectedFilesDiv = document.getElementById('selected-files');
+
+function updateSelectedFilesDisplay() {
+  selectedFilesDiv.innerHTML = '';
+  selectedFiles.forEach((file, idx) => {
+    const fileBox = document.createElement('span');
+    fileBox.className = 'file-box';
+    fileBox.textContent = file.name;
+
+    const removeBtn = document.createElement('span');
+    removeBtn.className = 'remove-file';
+    removeBtn.textContent = '✕';
+    removeBtn.title = 'Remove file';
+    removeBtn.onclick = function() {
+      selectedFiles.splice(idx, 1);
+      updateSelectedFilesDisplay();
+      // Update the input element to reflect the change
+      const dataTransfer = new DataTransfer();
+      selectedFiles.forEach(f => dataTransfer.items.add(f));
+      reviewImagesInput.files = dataTransfer.files;
+    };
+
+    fileBox.appendChild(removeBtn);
+    selectedFilesDiv.appendChild(fileBox);
+  });
+}
+
+// When user selects files
+reviewImagesInput.addEventListener('change', function() {
+  let newFiles = Array.from(this.files);
+  if (selectedFiles.length + newFiles.length > 5) {
+    alert('You can only attach up to 5 files.');
+    newFiles = newFiles.slice(0, 5 - selectedFiles.length);
+  }
+  selectedFiles = selectedFiles.concat(newFiles).slice(0, 5);
+  updateSelectedFilesDisplay();
+
+  // Update the input element to reflect the change
+  const dataTransfer = new DataTransfer();
+  selectedFiles.forEach(f => dataTransfer.items.add(f));
+  reviewImagesInput.files = dataTransfer.files;
+});
+</script>
  
-</body>
-</html>
-  </script>
 </body>
 </html>
