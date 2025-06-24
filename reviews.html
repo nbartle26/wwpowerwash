@@ -12,9 +12,9 @@
 
     <style>
     body {
-      background: url('reviewsbackground.jpg') no-repeat center center fixed;
+      background: url('photos/reviewsbackground.jpg') no-repeat center center fixed;
       background-size: cover;
-      min-height: 225vh;
+      min-height: 500vh;
     }
   </style>
   
@@ -37,7 +37,7 @@
     </div>
     <div class="topnav-right" title="WashWizards Logo">
       <span>WashWizards</span>
-      <img src="WashWizardsLogo.jpg" alt="WashWizards Logo" />
+      <img src="photos/WashWizardsLogo.jpg" alt="WashWizards Logo" />
     </div>
   </nav>
 
@@ -48,12 +48,7 @@
   </section>
 
   <main>
-
-    <section
-      class="reviews-list"
-      aria-label="Posted reviews"
-      id="reviewsList"
-    >
+    <section class="reviews-list" aria-label="Posted reviews" id="reviewsList">
       <!-- Reviews will appear here dynamically -->
     </section>
 <br><br>
@@ -77,12 +72,7 @@
         </div>
         <form id="reviewForm" enctype="multipart/form-data">
           <input type="text" id="reviewerName" name="reviewerName" placeholder="Enter your name" required />
-          <textarea
-            id="reviewText"
-            name="reviewText"
-            placeholder="Write your review here..."
-            required
-          ></textarea>
+          <textarea id="reviewText" name="reviewText" placeholder="Write your review here..." required></textarea>
         <label for="reviewImages"><b><u>Attach Media Here:</u></b></label>
 <input type="file" id="reviewImages" name="reviewImages" accept="image/*" multiple />
 <div id="selected-files" class="selected-files"></div>
@@ -119,16 +109,12 @@
     <form id="subscribe-form">
       <label for="firstName">First Name:</label>
       <input type="text" id="firstName" name="firstName" required />
-
       <label for="lastName">Last Name:</label>
       <input type="text" id="lastName" name="lastName" required />
-
       <label for="email">Email:</label>
       <input type="email" id="email" name="email" required />
-
       <label for="phone">Phone Number:</label>
       <input type="tel" id="phone" name="phone" required />
-
       <label for="address">Address:</label>
       <input type="text" id="address" name="address" required />
 
@@ -136,6 +122,7 @@
     </form>
   </div>
 </div>
+
 <script>
 function openSubscribeForm() {
   document.getElementById('subscribe-popup').style.display = 'flex';
@@ -184,8 +171,8 @@ document.getElementById('subscribe-popup').addEventListener('click', function(ev
 <footer class="footer" id="contact" role="contentinfo" aria-label="Contact information and footer navigation">
   <p><strong>Contact Us</strong></p>
     <p>919-886-2678 | bvcatullo@icloud.com</p>
-  <a href="privacystatement.pdf" target="_blank" rel="noopener noreferrer">Privacy Statement</a> | 
-  <a href="termsofservice.pdf" target="_blank" rel="noopener noreferrer">Terms & Conditions</a>
+  <a href="documents/privacystatement.pdf" target="_blank" rel="noopener noreferrer">Privacy Statement</a> | 
+  <a href="documents/termsofservice.pdf" target="_blank" rel="noopener noreferrer">Terms & Conditions</a>
   <p>Fully Licensed | Fully Insured</p>
 </footer>
 
@@ -305,8 +292,8 @@ const searchableItems = [
   { name: 'Before and After Gallery', url: 'services.html#before-after' },
   { name: 'Our Equipment', url: 'services.html#equipment' },
   { name: 'Service Area', url: 'services.html#service-area' },
-  { name: 'Privacy Statement', url: 'privacystatement.pdf' },
-  { name: 'Terms & Conditions', url: 'termsofservice.pdf' }
+  { name: 'Privacy Statement', url: 'documents/privacystatement.pdf' },
+  { name: 'Terms & Conditions', url: 'documents/termsofservice.pdf' }
 ];
 
 searchInput.addEventListener('input', () => {

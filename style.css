@@ -144,8 +144,20 @@ main {
 .about-content, .about-text, .nextdoor-text {
   display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; align-items: center;
 }
-.carousel, .about-text { flex: 1; min-width: 300px; max-width: 500px; }
-.carousel img { width: 100%; border-radius: 8px; }
+
+.carousel, .about-text { 
+  flex: 1;
+  min-width: 300px;
+  max-width: 500px;
+}
+.carousel img {
+   height: 350px;
+   width: auto;
+   object-fit: cover;
+   display: block;
+   margin: 0 auto;
+   border-radius: 8px;
+}
 
 /* ========= SERVICES GRID ========= */
 .services-list {
@@ -197,7 +209,7 @@ main {
   position: relative;
 }
 .before-after-item:hover { transform: scale(1.05); z-index: 10; }
-.before-after-item img { width: 100%; display: block; object-fit: cover; height: 200px; }
+.before-after-item img { width: 100%; height: 600px; display: block; object-fit: cover;}
 .before-after-caption { padding: 0.5rem 1rem; font-weight: 600; text-align: center; background: #4A90E2; color: #E6F0FF; }
 
 /* ========= QUOTE CALCULATOR ========= */
@@ -685,3 +697,4 @@ input[type="file"] {
 .remove-file:hover {
   background: #d32f2f;
 }
+

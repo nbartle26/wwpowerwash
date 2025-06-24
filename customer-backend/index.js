@@ -9,7 +9,7 @@ const PORT = 3000;
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: "nickbartle2@gmail.com", // your business email
+    user: "washwizardsnc@gmail.com", // your business email
     pass: "lagf hkuj xybc tddb"           // use an app password, not your real password
   }
 });
@@ -34,8 +34,8 @@ app.post("/api/customers", (req, res) => {
 
   // Inside your app.post("/api/customers", ...) after a successful DB insert:
     const mailOptions = {
-      from: "nickbartle2@gmail.com",
-      to: "nick00baseball@gmail.com", // your client's email address
+      from: "washwizardsnc@gmail.com",
+      to: "brcatullo@gmail.com",
       subject: "New Booking Received",
       text: `A new booking has been made:\n
     Name: ${firstName} ${lastName}
